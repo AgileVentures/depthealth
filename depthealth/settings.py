@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -37,6 +39,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'login',
+    'faq',
+    'register',
+    'reportinput',
+    'reportviewing',
+    'support'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,7 +63,7 @@ ROOT_URLCONF = 'depthealth.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(PACKAGE_ROOT, 'template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

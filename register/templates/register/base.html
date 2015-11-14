@@ -1,0 +1,39 @@
+{% load staticfiles %}
+
+<html lang="en">
+<head>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+	  <div class="navbar-header">
+	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </button>
+	  </div>
+
+	  <a class="navbar-brand" href="#">&nbsp;</a>
+
+	  <div class="navbar-collapse collapse">
+	    <img src="{% static "login/header.gif" %}" alt="Header" />
+	    <ul class="nav navbar-nav navbar-right">
+	      <li><a href="#about">Link 1</a></li>
+	      <li><a href="#contact">Link 2</a></li>
+	    </ul>
+	  </div>
+	</nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Copyright 2015 State of Hawaii Department of Health Developed by: Hawai'i Pacific University
+Version 1.0 Build 2015</p>
+      </div>
+    </footer>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

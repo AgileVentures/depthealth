@@ -9,7 +9,8 @@ class Student(models.Model):
     mname = models.CharField(max_length=50,null=True, blank=True)
     lname = models.CharField(max_length=50)
     dateofbirth = models.DateField()
-    person = models.ForeignKey(info.Person)
+    report = models.ForeignKey('Report', null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
     entry_date = models.DateField()
     enrollment = models.ForeignKey(info.Enrollment, default=1)
     notes = models.CharField(max_length=255, null=True,blank=True)
@@ -43,6 +44,7 @@ class Report(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     person = models.ForeignKey(info.Person)
     facility = models.ForeignKey(info.Facility)
+    entrydate = models.DateField()
 
     class Meta:
         db_table = 'report'
