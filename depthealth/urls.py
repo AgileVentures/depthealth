@@ -17,6 +17,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^reportviewing/', include('reportviewing.urls', namespace="reportviewing")),
     url(r'^reportinput/', include('reportinput.urls')),
     url(r'^register/', include('register.urls')),
     url(r'^login/', include('login.urls')),

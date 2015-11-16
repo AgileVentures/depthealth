@@ -1,6 +1,7 @@
 {% extends 'reportinput/base.html' %}
 
 {% block content %}
+    {{ request.session.personpk }}
     <h1 style="text-align: center">EPI12A</h1>
     <form action="" method="post">
     {% csrf_token %}
@@ -16,7 +17,7 @@
             <td class="all">Last Name</td>
             <td class="all">Date of Birth</td>
             <td class="all">Age</td>
-            <td class="all">Entry Data</td>
+            <td class="all">Entry Date</td>
         </tr>
         <tr>
             <td class="all">{{ form.fname }}</td>

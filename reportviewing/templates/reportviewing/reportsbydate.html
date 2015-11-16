@@ -1,0 +1,14 @@
+{% extends 'reportviewing/base.html' %}
+{% block content %}
+    {% if reports %}
+    {% csrf_token %}
+    {% for report in reports %}
+        <li>
+            <a href="{% url 'reportviewing:schoolreport' report.id %}">{{ report }}</a>
+        </li>
+    {% endfor %}
+    {% else %}
+        <p>No Reports to Show</p>
+    <a href="{% url 'login.views.landingpage' %}">Return to Main Screen</a>
+    {% endif %}
+{% endblock %}

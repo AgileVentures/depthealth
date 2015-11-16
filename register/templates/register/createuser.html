@@ -1,10 +1,9 @@
-{% extends 'register/base.html' %}
+{% extends 'register/../../../reportviewing/templates/reportviewing/base.html' %}
 
 {% block content %}
     <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    </form>
     <input type="submit" name="submit" value="Return to Login">
-    <a href="{% url 'login.views.loginscreen'%}">Return to Login</a>
+    </form>
 {% endblock %}

@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django import forms
 from .models import Student
-from register.models import Facility
+from register.models import Enrollment, Facility
 import datetime
 from django.forms.extras.widgets import SelectDateWidget
 
@@ -40,7 +40,7 @@ class StudentForm12B(forms.Form):
     mname = forms.CharField(label='Middle Name',max_length=50, required=False)
     lname = forms.CharField(label='Last Name',max_length=50)
     dateofbirth = forms.DateField(widget=SelectDateWidget(years=range(1995,2015),empty_label=("Year","Month","Day"),),)
-    grade = forms.CharField(label ='Grade',max_length=2)
+    grade = forms.ModelChoiceField(Enrollment.objects.all())
     entrydate = forms.DateField(widget=SelectDateWidget(empty_label=("Year","Month","Day"),),)
     noshotrecord = forms.BooleanField(label='No Shot Record',required = False)
     exempt_rel = forms.BooleanField(label= 'Religious Exempt',required = False)
@@ -67,3 +67,18 @@ class StudentForm12B(forms.Form):
     class Meta:
         model = Student
 
+class SchoolInfo(forms.Form):
+    kinder_enroll = forms.IntegerField()
+    lowest_grade = forms.ModelChoiceField(Enrollment.objects.all())
+    highest_grade = forms.ModelChoiceField(Enrollment.objects.all())
+    other_enroll = forms.IntegerField()
+    students_to_input = forms.IntegerField()
+
+    class Meta:
+        model = Facility
+
+
+class PreKInfo(forms.Form):
+    under19 = forms.IntegerField()
+    over19 = forms.IntegerField()
+    students = forms.IntegerField()

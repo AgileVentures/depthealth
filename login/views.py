@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from .forms import Login
-from register.models import User, Person
+from register.models import User, Person, Facility
 # Create your views here.
 def loginscreen(request):
     if request.method == 'POST':
@@ -13,6 +13,11 @@ def loginscreen(request):
                 person = Person.objects.get(email=user.username)
                 if user.password == form.cleaned_data['password']:
                     request.session['personpk'] = person.pk
+                    request.session['role'] = person.role_id
+                    if(person.facility_id > 0):
+                        f = Facility.objects.get(pk = person.facility_id)
+                        request.session['hasprek'] = f.has_pre_k
+                        request.session['onlyprk'] = f.is_only_pre_k
                     return render(request,'login/landingpage.html')
             except User.DoesNotExist:
                 HttpResponseRedirect('')
@@ -23,12 +28,4 @@ def loginscreen(request):
 
 def landingpage(request):
 
-    if request.method == 'POST':
-        return HttpResponseRedirect('register/facilityinput')
-        '''if 'input_data' in request.POST:
-            return render(request,'reportinput/studentinput.html')
-        elif 'see_reports' in request.POST:
-            return  render(request,'reportinput/reports.html')
-'''
-    else:
-        return render(request,'login/landingpage.html')
+    return render(request,'login/landingpage.html')

@@ -6,7 +6,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$',views.loginscreen, name='login'),
-    url(r'^$/landingpage',views.landingpage, name='landingpage'),
+    url(r'^landingpage',views.landingpage, name='landingpage'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

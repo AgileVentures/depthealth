@@ -1,4 +1,15 @@
 {% extends 'login/base.html' %}
 {% block content %}
+    {% if request.session.role == 1 %}
 <a href="{% url 'register.views.facility' %}">Create Facility</a>
+    {% endif %}
+    {% if request.session.hasprek == 1 %}
+    <a href="{% url 'reportinput.views.landing12a' %}">Create EPI12A</a>
+    {% endif %}
+    {% if request.session.onlyprk == 0 %}
+    <a href="{% url 'reportinput.views.landing12b' %}">Create EPI12B</a>
+    {% endif %}
+    {% if request.session.role != 1 %}
+    <a href="{% url 'reportviewing:date' %}">View Reports</a>
+    {% endif %}
 {% endblock %}

@@ -19,9 +19,6 @@ class CreateFacility(forms.Form):
         model = Facility
 
 class CreateUser(forms.Form):
-    email = forms.CharField(max_length=255)
-    password = forms.CharField(max_length=20)
-    password2 = forms.CharField(max_length=20)
     fname = forms.CharField(max_length=50)
     mname = forms.CharField(max_length=50, required=False)
     lname = forms.CharField(max_length=50)
@@ -32,3 +29,10 @@ class CreateUser(forms.Form):
     role = forms.ModelChoiceField(Role.objects.all())
     class Meta:
         model = Person
+
+class Username(forms.Form):
+    user = forms.CharField(max_length=255)
+    password1 = forms.CharField(max_length=20)
+    password2 = forms.CharField(max_length=20)
+    class Meta:
+        model = User
