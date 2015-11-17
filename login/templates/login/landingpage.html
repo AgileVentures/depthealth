@@ -3,10 +3,10 @@
     {% if request.session.role == 1 %}
 <a href="{% url 'register.views.facility' %}">Create Facility</a>
     {% endif %}
-    {% if request.session.hasprek == 1 %}
+    {% if request.session.hasprek == 1 and request.session.role != 1 %}
     <a href="{% url 'reportinput.views.landing12a' %}">Create EPI12A</a>
     {% endif %}
-    {% if request.session.onlyprk == 0 %}
+    {% if request.session.onlyprk == 0 and request.session.role != 1 %}
     <a href="{% url 'reportinput.views.landing12b' %}">Create EPI12B</a>
     {% endif %}
     {% if request.session.role != 1 %}

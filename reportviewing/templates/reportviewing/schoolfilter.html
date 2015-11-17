@@ -1,0 +1,10 @@
+{% extends 'reportviewing/base.html' %}
+{% block content %}
+    {% csrf_token %}
+    {% for facility in facilities %}
+        <li>
+            <td>{{ facility }}</td>
+        </li>
+    {% endfor %}
+    <a href="{% url 'login.views.landingpage' %}">Return to Main Screen</a>
+{% endblock %}

@@ -12,9 +12,47 @@ def epi12a(request):
     formset = formset_factory(StudentForm12A, extra=request.session['students'])
     if request.method =='POST':
         formset = formset(request.POST, request.FILES)
+        p = Person.objects.get(pk = request.session['personpk'])
+        f = Facility.objects.get(pk = p.facility_id)
+        count = f.count
+        f.count = request.session['students'] + count
+        f.save(update_fields=['count'])
+        r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
+        r.save()
         for form in formset:
             if form.is_valid():
-                form.save()
+                id = f.district_id * 10000000000
+                id += (f.pk*1000000)
+                id += count
+                s = Student(id = id)
+                s.fname = form.cleaned_data['fname']
+                s.mname = form.cleaned_data['mname']
+                s.lname = form.cleaned_data['lname']
+                s.dateofbirth = form.cleaned_data['dateofbirth']
+                s.age = form.cleaned_data['age']
+                s.entry_date = form.cleaned_data['entrydate']
+                s.noshotrecord = form.cleaned_data['noshotrecord']
+                s.exempt_rel = form.cleaned_data['exempt_rel']
+                s.exempt_med = form.cleaned_data['exempt_med']
+                s.dtap1 = form.cleaned_data['dtap1']
+                s.dtap2 = form.cleaned_data['dtap2']
+                s.dtap3 = form.cleaned_data['dtap3']
+                s.dtap4 = form.cleaned_data['dtap4']
+                s.polio1 = form.cleaned_data['polio1']
+                s.polio2 = form.cleaned_data['polio2']
+                s.polio3 = form.cleaned_data['polio3']
+                s.hib = form.cleaned_data['hib']
+                s.hepb1 = form.cleaned_data['hepb1']
+                s.hepb2 = form.cleaned_data['hepb2']
+                s.hepb3 = form.cleaned_data['hepb3']
+                s.mmr1 = form.cleaned_data['mmr1']
+                s.varicella1 = form.cleaned_data['varicella1']
+                s.pe = form.cleaned_data['pe']
+                s.tb = form.cleaned_data['tb']
+                s.notes = form.cleaned_data['notes']
+                s.report_id = r.pk
+                count += 1
+                s.save()
         return HttpResponseRedirect(reverse('complete'))
     else:
         formset = formset()
@@ -26,8 +64,8 @@ def epi12b(request):
         p = Person.objects.get(pk = request.session['personpk'])
         f = Facility.objects.get(pk = p.facility_id)
         count = f.count
-        f.count += request.session['students']
-        f.save()
+        f.count = request.session['students'] + count
+        f.save(update_fields=['count'])
         r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
         r.save()
         formset = formset(request.POST, request.FILES)

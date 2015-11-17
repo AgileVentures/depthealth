@@ -1,0 +1,12 @@
+{% extends 'reportviewing/base.html' %}
+{% block content %}
+    <form action="" method="post">
+    {% csrf_token %}
+    {% for district in districts %}
+        {% csrf_token %}
+        <li>
+            <td>{{ district }}</td>
+        </li>
+    {% endfor %}
+    <a href="{% url 'login.views.landingpage' %}">Return to Main Screen</a>
+{% endblock %}
