@@ -1,0 +1,18 @@
+{% extends 'login/base.html' %}
+{% block content %}
+    {% if faq %}
+        {% for question in faq %}
+            <table>
+                <tr>
+                    <td>Question:</td>
+                    <td>{{ question.question }}</td>
+                </tr>
+                <tr>
+                    <td>Answer:</td>
+                    <td>{{ question.answer }}</td>
+                </tr>
+            </table>
+        {% endfor %}
+    {% endif %}
+    <a href="{% url 'login:login' %}">Return to Login Screen</a>
+{% endblock %}

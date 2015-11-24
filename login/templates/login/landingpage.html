@@ -1,15 +1,21 @@
 {% extends 'login/base.html' %}
 {% block content %}
+    {% csrf_token %}
     {% if request.session.role == 1 %}
-<a href="{% url 'register.views.facility' %}">Create Facility</a>
+    <a href="{% url 'register.views.facility' %}">Create Facility</a>
     {% endif %}
     {% if request.session.hasprek == 1 and request.session.role != 1 %}
-    <a href="{% url 'reportinput.views.landing12a' %}">Create EPI12A</a>
+    <a href="{% url 'reportinput:landing12a' %}">Create EPI12A</a>
     {% endif %}
     {% if request.session.onlyprk == 0 and request.session.role != 1 %}
-    <a href="{% url 'reportinput.views.landing12b' %}">Create EPI12B</a>
+    <a href="{% url 'reportinput:landing12b' %}">Create EPI12B</a>
     {% endif %}
     {% if request.session.role != 1 %}
     <a href="{% url 'reportviewing:date' %}">View Reports</a>
+    {% endif %}
+    {% if request.session.role != 1 %}
+    <a href="{% url 'support:create' %}">Support Request</a>
+    {% else %}
+    <a href="{% url 'support:open' %}">Support Request</a>
     {% endif %}
 {% endblock %}

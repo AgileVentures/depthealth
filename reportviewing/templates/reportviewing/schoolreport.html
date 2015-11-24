@@ -1,14 +1,23 @@
-{% extends 'reportviewing/base.html' %}
+{% extends 'login/base.html' %}
 {% block content %}
     <form action="" method="post">
     {% csrf_token %}
     {% for student in students %}
         {% csrf_token %}
-        <li>
+        <table width="100%">
+        <tr>
             <td>{{ student.fname }}</td>
             <td>{{ student.lname }}</td>
-        </li>
+            {% if student.exempt_med %}
+                <td>Medical Exemption</td>
+            {% endif %}
+            {% if student.exempt_rel %}
+                <td>Religious Exemption</td>
+            {% endif %}
+        </tr>
+        </table>
     {% endfor %}
     <input type="submit" value="Create CSV">
-    <a href="{% url 'login.views.landingpage' %}">Return to Main Screen</a>
+    </form>
+    <a href="{% url 'login:landingpage' %}">Return to Main Screen</a>
 {% endblock %}

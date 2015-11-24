@@ -8,3 +8,12 @@ class Login(forms.Form):
 
     class Meta:
         model = User
+
+class ResetPassword(forms.Form):
+    username = forms.CharField(max_length=255)
+    old_password = forms.CharField(max_length=50)
+    new_password1 = forms.CharField(max_length=50)
+    new_password2 = forms.CharField(max_length=50)
+
+    class Meta:
+        model = User

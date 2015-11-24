@@ -1,0 +1,24 @@
+{% extends 'login/base.html' %}
+{% block content %}
+    {% if tickets %}
+        <table width="100%">
+            <tr>
+                <td colspan="1" class="all">ID</td>
+                <td colspan="4">Person</td>
+                <td colspan="9">Description</td>
+            </tr>
+        </table>
+        {% for ticket in tickets %}
+            {% csrf_token %}
+            <table width="100%">
+                <tr>
+                    <td colspan="1" class="all">{{ ticket.id }}</td>
+                    <td colspan="4">{{ ticket.person_id }}</td>
+                    <td colspan="9">{{ ticket.description }}</td>
+                </tr>
+            </table>
+        {% endfor %}
+        {% else %}
+        <p>No open tickets</p>
+    {% endif %}
+{% endblock %} }}

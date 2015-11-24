@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.forms import formset_factory
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from .models import Student, Report
 from register.models import Person, Facility, Enrollment
@@ -8,15 +9,14 @@ from .forms import StudentForm12A, StudentForm12B, SchoolInfo, PreKInfo
 import datetime
 # Create your views here.
 
+@login_required
 def epi12a(request):
     formset = formset_factory(StudentForm12A, extra=request.session['students'])
     if request.method =='POST':
         formset = formset(request.POST, request.FILES)
         p = Person.objects.get(pk = request.session['personpk'])
         f = Facility.objects.get(pk = p.facility_id)
-        count = f.count
-        f.count = request.session['students'] + count
-        f.save(update_fields=['count'])
+        count = f.count - request.session['students']
         r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
         r.save()
         for form in formset:
@@ -58,14 +58,13 @@ def epi12a(request):
         formset = formset()
     return render(request, 'reportinput/epi12a.html',{'formset':formset,})
 
+@login_required
 def epi12b(request):
     formset = formset_factory(StudentForm12B, extra=request.session['students'])
     if request.method =='POST':
         p = Person.objects.get(pk = request.session['personpk'])
         f = Facility.objects.get(pk = p.facility_id)
-        count = f.count
-        f.count = request.session['students'] + count
-        f.save(update_fields=['count'])
+        count = f.count - request.session['students']
         r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
         r.save()
         formset = formset(request.POST, request.FILES)
@@ -107,12 +106,13 @@ def epi12b(request):
                 s.report_id = r.pk
                 count += 1
                 s.save()
-        return HttpResponseRedirect(reverse('complete'))
+        return HttpResponseRedirect(reverse('reportinput:complete'))
 
     else:
         formset = formset()
     return render(request, 'reportinput/epi12b.html',{'formset':formset,})
 
+@login_required
 def landing12a(request):
     personid = request.session['personpk']
     p = Person.objects.get(pk = personid)
@@ -130,6 +130,7 @@ def landing12a(request):
                 return HttpResponseRedirect(reverse('complete'))
             else:
                 f.allimmune = False
+                f.count = f.count + form.cleaned_data['students']
                 f.save()
                 request.session['students'] = form.cleaned_data['students']
                 return HttpResponseRedirect(reverse('epi12a'))
@@ -137,6 +138,7 @@ def landing12a(request):
         form = PreKInfo()
     return  render(request,'reportinput/landing12a.html',{'form':form})
 
+@login_required
 def landing12b(request):
     personid = request.session['personpk']
     p = Person.objects.get(pk = personid)
@@ -160,13 +162,15 @@ def landing12b(request):
                 return HttpResponseRedirect(reverse('complete'))
             else:
                 f.allimmune = False
+                f.count = f.count + students
                 f.save()
                 request.session['students'] = students
-                return HttpResponseRedirect(reverse('epi12b'))
+                return HttpResponseRedirect(reverse('reportinput:epi12b'))
     else:
         form = SchoolInfo()
     return  render(request,'reportinput/landing12b.html',{'form':form})
 
+@login_required
 def complete(request):
     return render(request, 'reportinput/complete.html')
 

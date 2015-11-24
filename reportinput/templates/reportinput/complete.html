@@ -1,5 +1,5 @@
-{% extends 'reportinput/base.html' %}
+{% extends 'login/base.html' %}
 {% block content %}
     <h1>You are finished</h1>
-    <a href="{% url 'landingpage' %}">Return to Home Screen</a>
+    <a href="{% url 'login:landingpage' %}">Return to Home Screen</a>
 {% endblock %}

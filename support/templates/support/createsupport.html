@@ -1,9 +1,8 @@
 {% extends 'login/base.html' %}
-
 {% block content %}
     <form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" name="submit" value="Return to Login">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="submit" value="Submit">
     </form>
 {% endblock %}
