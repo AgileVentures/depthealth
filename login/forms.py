@@ -10,10 +10,10 @@ class Login(forms.Form):
         model = User
 
 class ResetPassword(forms.Form):
-    username = forms.CharField(max_length=255)
-    old_password = forms.CharField(max_length=50)
-    new_password1 = forms.CharField(max_length=50)
-    new_password2 = forms.CharField(max_length=50)
+    username = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
+    old_password = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
+    new_password1 = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
+    new_password2 = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
 
     class Meta:
         model = User

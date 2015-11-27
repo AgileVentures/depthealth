@@ -4,27 +4,31 @@
     {{ p }}
 {% endblock %}
 {% block content %}
+<nav class="collapse navbar-inverse navbar-collapse bs-navbar-collapse" role="navigation">
+  <div class="container-fluid">
     {% csrf_token %}
-    <table width="50%" align="left">
-    {% if request.session.role == 1 %}
-    <tr align="center"><td><p><a href="{% url 'register:facilitylist' %}" class="btn btn-primary btn-lg" role="button">Manage Facility</a></p></td></tr>
-    <tr align="center"><td><p><a href="{% url 'register:userlist' %}" class="btn btn-primary btn-lg" role="button">Manage User's</a></p></td></tr>
+      <ul class="nav navbar-nav">
+      {% if request.session.role == 1 %}
+    <li><a href="{% url 'register:facilitylist' %}">Manage Facility</a></li>
+    <li><a href="{% url 'register:userlist' %}">Manage User's</a></li>
     {% endif %}
     {% if request.session.hasprek == 1 and request.session.role != 1 %}
-    <tr align="center"><td><p><a href="{% url 'reportinput:landing12a' %}" class="btn btn-primary btn-lg">Create EPI12A</a></p></td></tr>
+    <li><a href="{% url 'reportinput:landing12a' %}">Create EPI12A</a></li>
     {% endif %}
     {% if request.session.onlyprk == 0 and request.session.role != 1 %}
-    <tr align="center"><td><p><a href="{% url 'reportinput:landing12b' %}" class="btn btn-primary btn-lg">Create EPI12B</a></p></td></tr>
+    <li><a href="{% url 'reportinput:landing12b' %}">Create EPI12B</a></li>
     {% endif %}
     {% if request.session.role != 1 %}
-    <tr align="center"><td><p><a href="{% url 'reportviewing:date' %}" class="btn btn-primary btn-lg">View Reports</a></p></td></tr>
+    <li><a href="{% url 'reportviewing:date' %}">View Reports</a></li>
     {% endif %}
     {% if request.session.role != 1 %}
-    <tr align="center"><td><p><a href="{% url 'support:create' %}" class="btn btn-primary btn-lg">Support Request</a></p></td></tr>
+    <li><a href="{% url 'support:create' %}">Support Request</a></li>
     {% else %}
-    <tr align="center"><td><p><a href="{% url 'support:open' %}" class="btn btn-primary btn-lg">Support Request</a></p></td></tr>
+    <li><a href="{% url 'support:open' %}">Support Request</a></li>
     {% endif %}
-    </table>
+    </ul>
+</div>
+</nav>
     <table width="50%" align="right">
         <tr align="center">
             <td><img src="{% static 'login/se.jpg' %}" /></td>

@@ -43,8 +43,8 @@ class ModifyUser(forms.Form):
     password = forms.CharField(max_length=20)
 
 class Username(forms.Form):
-    user = forms.CharField(max_length=255)
-    password1 = forms.CharField(max_length=20)
-    password2 = forms.CharField(max_length=20)
+    user = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
+    password1 = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
+    password2 = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
     class Meta:
         model = User
