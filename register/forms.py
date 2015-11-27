@@ -30,6 +30,18 @@ class CreateUser(forms.Form):
     class Meta:
         model = Person
 
+class ModifyUser(forms.Form):
+    fname = forms.CharField(max_length=50)
+    mname = forms.CharField(max_length=50, required=False)
+    lname = forms.CharField(max_length=50)
+    phone = forms.IntegerField(max_value=9999999999)
+    fax = forms.IntegerField(max_value=99999999999, required=False)
+    title = forms.CharField(max_length=50, required=False)
+    facility = forms.ModelChoiceField(Facility.objects.all())
+    role = forms.ModelChoiceField(Role.objects.all())
+    user = forms.CharField(max_length=255)
+    password = forms.CharField(max_length=20)
+
 class Username(forms.Form):
     user = forms.CharField(max_length=255)
     password1 = forms.CharField(max_length=20)

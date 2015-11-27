@@ -1,8 +1,38 @@
 {% extends 'login/base.html' %}
+{% load staticfiles %}
 {% block content %}
     <form action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" name="submit" value="Submit">
+        <table cellspacing="20" align="center">
+            <p><tr>
+                <td>Kindergarten Enrollment:</td>
+                <td>{{ form.kinder_enroll }}</td>
+            </tr></p>
+            <p><tr>
+                <td>Lowest Grade:</td>
+                <td>{{ form.lowest_grade }}</td>
+            </tr></p>
+            <p><tr>
+                <td>Highest Grade:</td>
+                <td>{{ form.highest_grade }}</td>
+            </tr></p>
+            <p><tr>
+                <td>Total Enrollment Excluding K:</td>
+                <td>{{ form.other_enroll }}</td>
+            </tr></p>
+            <p><tr>
+                <td>Amount of Students to Input:</td>
+                <td>{{ form.students_to_input }}</td>
+            </tr></p>
+            <tr>
+                <td colspan="2" align="center"><button class="btn-lg btn-primary" type="submit">SUBMIT</button></td>
+            </tr>
+        </table>
     </form>
+    <table align="center">
+        <tr>
+            <td><img src="{% static 'login/webdev.jpg' %}" align="middle" height="285" width="480"/></td>
+        </tr>
+    </table>
+
 {% endblock %}

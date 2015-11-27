@@ -4,14 +4,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from .forms import Login, ResetPassword
-from register.models import User, Person, Facility
+from register.models import User as u, Person, Facility
+
 # Create your views here.
 def loginscreen(request):
     if request.method == 'POST':
         form = Login(request.POST)
         if form.is_valid():
             try:
-                username = User.objects.get(pk=form.cleaned_data['username'])
+                username = u.objects.get(pk=form.cleaned_data['username'])
                 person = Person.objects.get(email=username.username)
                 user = authenticate(username=username, password = form.cleaned_data['password'])
                 if user.is_active:
@@ -22,8 +23,8 @@ def loginscreen(request):
                         f = Facility.objects.get(pk = person.facility_id)
                         request.session['hasprek'] = f.has_pre_k
                         request.session['onlyprk'] = f.is_only_pre_k
-                    return render(request,'login/landingpage.html')
-            except User.DoesNotExist:
+                    return render(request,'login/landingpage.html', {'p':person})
+            except u.DoesNotExist:
                 HttpResponseRedirect('')
 
     else:

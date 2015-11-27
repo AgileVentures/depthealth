@@ -159,7 +159,7 @@ def landing12b(request):
             if students == 0:
                 f.allimmune = True
                 f.save()
-                return HttpResponseRedirect(reverse('complete'))
+                return HttpResponseRedirect(reverse('reportinput:complete'))
             else:
                 f.allimmune = False
                 f.count = f.count + students

@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^support/', include('support.urls', namespace="support")),
     url(r'^reportviewing/', include('reportviewing.urls', namespace="reportviewing")),
     url(r'^reportinput/', include('reportinput.urls', namespace="reportinput")),
-    url(r'^register/', include('register.urls')),
+    url(r'^register/', include('register.urls', namespace="register")),
     url(r'^login/', include('login.urls', namespace="login")),
     url(r'^admin/', include(admin.site.urls)),
 ]

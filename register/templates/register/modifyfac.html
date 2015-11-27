@@ -1,0 +1,9 @@
+{% extends 'login/base.html' %}
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn-lg" type="submit" name="Change">Change</button>
+        <button class="btn-lg" type="submit" name="Delete">Delete</button>
+    </form>
+{% endblock %}

@@ -12,6 +12,6 @@
     {{ form.as_p }}
     <input type="submit" value="Submit">
 </form>
-    <a href="{% url 'register.views.username' %}">Create User</a>
+    <a href="{% url 'register:user' %}">Create User</a>
     <a href="{% url 'login:reset' %}">Reset Password</a>
 {% endblock %}

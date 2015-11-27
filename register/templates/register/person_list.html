@@ -1,0 +1,9 @@
+{% extends 'login/base.html' %}
+{% block content %}
+    {% for person in object_list %}
+        <li>
+            <a href="{% url 'register:modifyuser' person.id%}"> {{ person }}</a>
+        </li>
+    {% endfor %}
+    <a href="{% url 'login:landingpage' %}" class="btn btn-primary btn-lg" role="button">Return to Home</a>
+{% endblock %}

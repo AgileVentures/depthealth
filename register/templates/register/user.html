@@ -2,7 +2,20 @@
 {% block content %}
     <form action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" name="submit" value="Submit">
+    <table align="center">
+        <tr>
+            <td>Email Address:</td>
+            <td>{{ form.user }}</td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td>{{ form.password1 }}</td>
+        </tr>
+        <tr>
+            <td>Confirm Password:</td>
+            <td>{{ form.password2 }}</td>
+        </tr>
+        <input type="submit" name="submit" value="Submit">
+    </table>
     </form>
 {% endblock %}

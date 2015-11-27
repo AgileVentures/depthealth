@@ -1,0 +1,9 @@
+{% extends 'login/base.html' %}
+{% block content %}
+    {% for facility in object_list %}
+        <li>
+            <a href="{% url 'register:modify' facility.id%}"> {{ facility.name }}</a>
+        </li>
+    {% endfor %}
+    <a href="{% url 'register:facilityinput' %}" class="btn btn-primary btn-lg" role="button">Create Facility</a>
+{% endblock %}

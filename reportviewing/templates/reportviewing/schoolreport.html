@@ -4,18 +4,18 @@
     {% csrf_token %}
     {% for student in students %}
         {% csrf_token %}
-        <table width="100%">
-        <tr>
-            <td>{{ student.fname }}</td>
-            <td>{{ student.lname }}</td>
+
+        <li>
+            {{ student.fname }}
+            {{ student.lname }}
             {% if student.exempt_med %}
-                <td>Medical Exemption</td>
+                Medical Exemption
             {% endif %}
             {% if student.exempt_rel %}
-                <td>Religious Exemption</td>
+                Religious Exemption
             {% endif %}
-        </tr>
-        </table>
+        </li>
+
     {% endfor %}
     <input type="submit" value="Create CSV">
     </form>
