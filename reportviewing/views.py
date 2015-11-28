@@ -48,6 +48,76 @@ def createschoolcsv(request, report_id):
 
     return response
 
+def createmasterlist12b(request):
+    students = Student.object.exclude(enrollment_id = 1).order_by('facility')
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="gradeschoolmaster.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Student ID',
+                     'Name',
+                     'Date of Birth',
+                     'School',
+                     'Grade',
+                     'No Shot Record',
+                     'Medically Exempt',
+                     'Religiously Exempt',
+                     'Dtap 1',
+                     'Dtap 2',
+                     'Dtap 3',
+                     'Dtap 4',
+                     'Dtap 5',
+                     'Polio 1',
+                     'Polio 2',
+                     'Polio 3',
+                     'Polio 4',
+                     'HepB 1',
+                     'HepB 2',
+                     'HepB 3',
+                     'MMR 1',
+                     'MMR 2',
+                     'Varicella 1',
+                     'Varicella 2',
+                     'PE',
+                     'TB',
+                     'Notes'])
+    for student in students:
+        name = ''
+        if student.mname == '':
+            name = '{} {}'.format(student.fname, student.lname)
+        else:
+            name = '{} {} {}'.format(student.fname, student.mname, student.lname)
+        writer.writerow([student.id,
+                         name,
+                         student.dateofbirth,
+                         student.facility,
+                         student.enrollment,
+                         student.noshotrecord,
+                         student.exempt_med,
+                         student.exempt_rel,
+                         student.dtap1,
+                         student.dtap2,
+                         student.dtap3,
+                         student.dtap4,
+                         student.dtap5,
+                         student.polio1,
+                         student.polio2,
+                         student.polio3,
+                         student.polio4,
+                         student.hepb1,
+                         student.hepb2,
+                         student.hepb3,
+                         student.mmr1,
+                         student.mmr2,
+                         student.varicella1,
+                         student.varicella2,
+                         student.pe,
+                         student.tb,
+                         student.notes])
+    return response
+
+
 def listofstudents(request):
     f = Facility.objects.get(pk = request.session['inputid'])
     type = request.session['type']
