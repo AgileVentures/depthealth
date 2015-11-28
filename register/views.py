@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
-from .forms import CreateFacility, CreateUser, Username, ModifyUser, StudentInput, SchoolModifyUser
+from .forms import CreateFacility, CreateUser, Username, ModifyUser
 from .models import  Facility, District, Role, User, Person, Enrollment
 from django.contrib.auth.models import User as uauth
 from django.views.generic.list import ListView
@@ -91,38 +91,34 @@ def createuser(request):
     return render(request, 'register/createuser.html', {'form':form,})
 
 def facilitylanding(request, facility_id):
-    form = StudentInput()
+
     f = Facility.objects.get(pk=facility_id)
     d = District.objects.get(pk=f.district_id)
     p = Person.objects.filter(facility_id=f.pk).get(role_id=2)
 
     if request.method == 'POST':
-        form = StudentInput(request.POST)
         request.session['inputid'] = f.pk
-        if form.is_valid():
-            request.session['students'] = form.cleaned_data['input']
-            f.count += form.cleaned_data['input']
-            f.save()
-            if '12a' in request.POST:
-                return HttpResponseRedirect(reverse('reportinput:epi12a'))
-            if '12b' in request.POST:
-                return HttpResponseRedirect(reverse('reportinput:epi12b'))
-        else:
-            if 'Med' in request.POST:
-                request.session['type']=1
 
-            if 'Rel' in request.POST:
-                request.session['type']=2
+        if '12a' in request.POST:
+                return HttpResponseRedirect(reverse('reportinput:landing12a'))
+        if '12b' in request.POST:
+                return HttpResponseRedirect(reverse('reportinput:landing12b'))
 
-            if 'Ex' in request.POST:
-                request.session['type']=3
+        if 'Med' in request.POST:
+            request.session['type']=1
 
-            if 'All' in request.POST:
-                request.session['type']=4
+        if 'Rel' in request.POST:
+            request.session['type']=2
 
-            return HttpResponseRedirect(reverse('reportviewing:students'))
+        if 'Ex' in request.POST:
+            request.session['type']=3
+
+        if 'All' in request.POST:
+            request.session['type']=4
+
+        return HttpResponseRedirect(reverse('reportviewing:students'))
     else:
-        return render(request, 'register/facilitylanding.html',{'f':f,'d':d,'p':p,'form':form})
+        return render(request, 'register/facilitylanding.html',{'f':f,'d':d,'p':p})
 
 
 def modifyfacility(request, facility_id):
@@ -169,48 +165,6 @@ def modifyfacility(request, facility_id):
     return render(request, 'register/modifyfac.html', {'form':form,})
 
 
-
-def schoolmoduser(request, person_id):
-    person = Person.objects.get(pk= person_id)
-    user = User.objects.get(pk = person.email_id)
-    form = SchoolModifyUser(initial={'fname':person.fname, 'mname':person.mname, 'lname':person.lname, 'phone':person.phone, 'fax':person.fax, 'title':person.title, 'user':user.username,'password':user.password, 'role':person.role,})
-    if request.method == 'POST':
-        if 'Drop' in request.POST:
-            p = Person.objects.get(pk = person_id)
-            p.facility_id = None
-            p.save()
-            p.verified = False
-            p.save()
-            return HttpResponseRedirect(reverse('login:landingpage'))
-        if 'Change' in request.POST:
-            form = SchoolModifyUser(request.POST)
-            if form.is_valid():
-                p = Person.objects.get(pk = person_id)
-                u = User.objects.get(pk = person.email_id)
-                u.password = form.cleaned_data['password']
-                u.save()
-                user = uauth.objects.get(username = p.email_id)
-                user.set_password(u.password)
-                user.save()
-                p.fname = form.cleaned_data['fname']
-                p.save()
-                p.mname = form.cleaned_data['mname']
-                p.save()
-                p.lname = form.cleaned_data['lname']
-                p.save()
-                p.phone = form.cleaned_data['phone']
-                p.save()
-                p.fax = form.cleaned_data['fax']
-                p.save()
-                p.title = form.cleaned_data['title']
-                p.save()
-                p.role_id = form.cleaned_data['role']
-                p.save()
-                return HttpResponseRedirect(reverse('login:landingpage'))
-
-    return render(request, 'register/school_mod_user.html', {'form':form,})
-
-
 def modifyuser(request, person_id):
     person = Person.objects.get(pk = person_id)
     user = User.objects.get(pk = person.email_id)
@@ -228,8 +182,6 @@ def modifyuser(request, person_id):
             if form.is_valid():
                 p = Person.objects.get(pk = person_id)
                 u = User.objects.get(pk = person.email_id)
-                u.username = form.cleaned_data['user']
-                u.save()
                 u.password = form.cleaned_data['password']
                 u.save()
                 p.fname = form.cleaned_data['fname']
@@ -244,18 +196,24 @@ def modifyuser(request, person_id):
                 p.save()
                 p.title = form.cleaned_data['title']
                 p.save()
-                p.facility_id = form.cleaned_data['facility']
-                p.save()
                 p.role_id = form.cleaned_data['role']
                 p.save()
-                p.email_id = form.cleaned_data['user']
-                p.save()
-                p.verified = form.cleaned_data['verify']
-                p.save()
+                if request.session['role'] == 1:
+                    p.verified = form.cleaned_data['verify']
+                    p.save()
+                    p.facility_id = form.cleaned_data['facility']
+                    p.save()
                 user = uauth.objects.get(username = p.email_id)
                 user.set_password(u.password)
                 user.save()
                 return HttpResponseRedirect(reverse('login:landingpage'))
+        if 'Drop' in request.POST:
+            p = Person.objects.get(pk = person_id)
+            p.facility_id = None
+            p.save()
+            p.verified = False
+            p.save()
+            return HttpResponseRedirect(reverse('login:landingpage'))
     else:
         form = ModifyUser(initial={'fname':person.fname, 'mname':person.mname, 'lname':person.lname, 'phone':person.phone, 'fax':person.fax, 'title':person.title, 'user':user.username,'password':user.password, 'facility':person.facility, 'role':person.role, 'verify':person.verified})
     return render(request, 'register/modify_user.html', {'form':form,})
@@ -271,7 +229,7 @@ class UserList(ListView):
 
 class SchoolUserList(ListView):
     model = Person
-    template_name = 'register/school_user.html'
+    template_name = 'register/person_list.html'
 
     def get_queryset(self):
         return Person.objects.filter(facility_id = self.request.session['fac'])

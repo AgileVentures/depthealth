@@ -67,12 +67,11 @@
                 {% csrf_token %}
         <tr>
             <td align="center"><a href="{% url 'register:modify' f.id%}" class="btn btn-lg btn-primary" role="button"> Modify Facility Information</a></td>
-                <td>Students to Input: {{ form.input }}</td>
                 {% if f.has_pre_k %}
-                <td><button class="btn-lg" type="submit" name="12a">Create PreK Report</button></td>
+                <td align="center"><button class="btn-lg" type="submit" name="12a">Create PreK Report</button></td>
                  {% endif %}
                 {% if not f.is_only_pre_k %}
-                <td><button class="btn-lg" type="submit" name="12b">Create Grade School Report</button></td>
+                <td align="center"><button class="btn-lg" type="submit" name="12b">Create Grade School Report</button></td>
                 {% endif %}
             </tr>
                 <td><button class="btn-lg" type="submit" name="Med">Medical Exemptions</button></td>

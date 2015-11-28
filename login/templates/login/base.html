@@ -36,6 +36,7 @@
     <li><a href="{% url 'register:userlist' %}">Manage User's</a></li>
     {% endif %}
       {% if request.session.role == 2 %}
+          <li><a href="{% url 'register:facilitylanding' request.session.fac %}">Manage Facility</a></li>
           <li><a href="{% url 'register:schooluser' %}">Manage User's</a></li>
       {% endif %}
     {% if request.session.hasprek == 1 and request.session.role != 1 %}

@@ -4,6 +4,10 @@
         {% csrf_token %}
         {{ form.as_p }}
         <button class="btn-lg" type="submit" name="Change">Change</button>
+        {% if request.session.role == 1 %}
         <button class="btn-lg" type="submit" name="Delete">Delete</button>
+        {% else %}
+        <button class="btn-lg" type="submit" name="Drop">Remove User</button>
+        {% endif %}
     </form>
 {% endblock %}

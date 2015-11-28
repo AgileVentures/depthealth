@@ -53,6 +53,20 @@ def epi12a(request):
                 s.report_id = r.pk
                 s.facility_id = f.pk
                 count += 1
+                if s.dtap1:
+                    s.dtap2 = s.dtap1
+                if s.dtap2:
+                    s.dtap3 = s.dtap2
+                if s.dtap3:
+                    s.dtap4 = s.dtap3
+                if s.polio1:
+                    s.polio2 = s.polio1
+                if s.polio2:
+                    s.polio3 = s.polio2
+                if s.hepb1:
+                    s.hepb2 = s.hepb1
+                if s.hepb2:
+                    s.hepb3 = s.hepb2
                 s.save()
         return HttpResponseRedirect(reverse('complete'))
     else:
@@ -110,6 +124,28 @@ def epi12b(request):
                 s.report_id = r.pk
                 s.facility_id = f.pk
                 count += 1
+                if s.dtap1:
+                    s.dtap2 = s.dtap1
+                if s.dtap2:
+                    s.dtap3 = s.dtap2
+                if s.dtap3:
+                    s.dtap4 = s.dtap3
+                if s.dtap4:
+                    s.dtap5 = s.dtap4
+                if s.polio1:
+                    s.polio2 = s.polio1
+                if s.polio2:
+                    s.polio3 = s.polio2
+                if s.polio3:
+                    s.polio4 = s.polio3
+                if s.hepb1:
+                    s.hepb2 = s.hepb1
+                if s.hepb2:
+                    s.hepb3 = s.hepb2
+                if s.mmr1:
+                    s.mmr2 = s.mmr1
+                if s.varicella1:
+                    s.varicella2 = s.varicella1
                 s.save()
         return HttpResponseRedirect(reverse('reportinput:complete'))
 
@@ -121,7 +157,10 @@ def epi12b(request):
 def landing12a(request):
     personid = request.session['personpk']
     p = Person.objects.get(pk = personid)
-    f = Facility.objects.get(pk = p.facility_id)
+    if p.role_id == 1:
+        f = Facility.objects.get(pk = request.session['inputid'])
+    else:
+        f = Facility.objects.get(pk = p.facility_id)
     if request.method == 'POST':
         form = PreKInfo(request.POST)
         if form.is_valid():
@@ -140,14 +179,17 @@ def landing12a(request):
                 request.session['students'] = form.cleaned_data['students']
                 return HttpResponseRedirect(reverse('reportinput:epi12a'))
     else:
-        form = PreKInfo()
+        form = PreKInfo(initial={'under19':f.under_19_months,'over19':f.over_19_months})
     return  render(request,'reportinput/landing12a.html',{'form':form})
 
 @login_required
 def landing12b(request):
     personid = request.session['personpk']
     p = Person.objects.get(pk = personid)
-    f = Facility.objects.get(pk = p.facility_id)
+    if p.role_id == 1:
+        f = Facility.objects.get(pk = request.session['inputid'])
+    else:
+        f = Facility.objects.get(pk = p.facility_id)
     if request.method == 'POST':
         form = SchoolInfo(request.POST)
         if form.is_valid():
@@ -175,7 +217,7 @@ def landing12b(request):
                 request.session['students'] = students
                 return HttpResponseRedirect(reverse('reportinput:epi12b'))
     else:
-        form = SchoolInfo(initial={'lowest_grade':f.lowest_grade,'highest_grade':f.highest_grade})
+        form = SchoolInfo(initial={'lowest_grade':f.lowest_grade,'highest_grade':f.highest_grade, 'kinder_enroll':f.kinder_enroll, 'other_enroll':f.other_enroll})
     return  render(request,'reportinput/landing12b.html',{'form':form, 'f':f,})
 
 @login_required

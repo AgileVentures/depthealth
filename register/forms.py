@@ -16,6 +16,7 @@ class CreateFacility(forms.Form):
     district = forms.ModelChoiceField(District.objects.all())
     lowest_grade = forms.ModelChoiceField(Enrollment.objects.all())
     highest_grade = forms.ModelChoiceField(Enrollment.objects.all())
+
     class Meta:
         model = Facility
 
@@ -44,23 +45,9 @@ class ModifyUser(forms.Form):
     user = forms.CharField(max_length=255)
     password = forms.CharField(max_length=20)
 
-class SchoolModifyUser(forms.Form):
-    fname = forms.CharField(max_length=50)
-    mname = forms.CharField(max_length=50, required=False)
-    lname = forms.CharField(max_length=50)
-    phone = forms.IntegerField(max_value=9999999999)
-    fax = forms.IntegerField(max_value=99999999999, required=False)
-    title = forms.CharField(max_length=50, required=False)
-    role = forms.ModelChoiceField(Role.objects.exclude(id = 1))
-    user = forms.CharField(max_length=255)
-    password = forms.CharField(max_length=20)
-
 class Username(forms.Form):
     user = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
     password1 = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
     password2 = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
     class Meta:
         model = User
-
-class StudentInput(forms.Form):
-    input = forms.IntegerField()
