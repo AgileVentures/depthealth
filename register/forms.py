@@ -51,3 +51,6 @@ class Username(forms.Form):
     password2 = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
     class Meta:
         model = User
+
+class FacilityFilter(forms.Form):
+    name = forms.CharField(required=False)

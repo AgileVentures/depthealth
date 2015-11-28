@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
-from .forms import CreateFacility, CreateUser, Username, ModifyUser
+from .forms import CreateFacility, CreateUser, Username, ModifyUser, FacilityFilter
 from .models import  Facility, District, Role, User, Person, Enrollment
 from django.contrib.auth.models import User as uauth
 from django.views.generic.list import ListView
@@ -37,14 +37,23 @@ def facility(request):
         form = CreateFacility()
     return render(request,'register/facilityinput.html',{'form':form,})
 
-class FacilityList(ListView):
+def facilitylist(request):
+    form = FacilityFilter()
+    if request.session['schoolfilter'] == 'all':
+        object_list = Facility.objects.all()
+    else:
+        object_list = Facility.objects.filter(name__icontains=request.session['schoolfilter'])
+    if request.method=='POST':
+        form = FacilityFilter(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['name'] is None:
+                request.session['schoolfilter'] = 'all'
+            else:
+                request.session['schoolfilter'] = form.cleaned_data['name']
+            return HttpResponseRedirect(reverse('register:facilitylist'))
+    return render(request,'register/facility_list.html',{'form':form, 'object_list':object_list})
 
-    model = Facility
-    template_name = 'register/facility_list.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(FacilityList, self).get_context_data(**kwargs)
-        return context
 
 def username(request):
     if request.method == 'POST':

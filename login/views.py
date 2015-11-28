@@ -20,6 +20,10 @@ def loginscreen(request):
                     request.session['personpk'] = person.pk
                     request.session['role'] = person.role_id
                     request.session['fac'] = person.facility_id
+                    if person.role_id == 1:
+                        request.session['schoolfilter'] = 'all'
+                    else:
+                        request.session['schoolfilter'] = person.facility
                     if(person.facility_id > 0):
                         f = Facility.objects.get(pk = person.facility_id)
                         request.session['hasprek'] = f.has_pre_k
