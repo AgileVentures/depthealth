@@ -68,7 +68,7 @@ def epi12a(request):
                 if s.hepb2:
                     s.hepb3 = s.hepb2
                 s.save()
-        return HttpResponseRedirect(reverse('complete'))
+        return HttpResponseRedirect(reverse('reportinput:complete'))
     else:
         formset = formset()
     return render(request, 'reportinput/epi12a.html',{'formset':formset,})
@@ -152,6 +152,212 @@ def epi12b(request):
     else:
         formset = formset()
     return render(request, 'reportinput/epi12b.html',{'formset':formset,})
+
+def update12b(request, student_id):
+    student = Student.objects.get(pk = student_id)
+    p = Person.objects.get(pk = request.session['personpk'])
+    if p.role_id == 1:
+        f = Facility.objects.get(pk = request.session['inputid'])
+    else:
+        f = Facility.objects.get(pk = p.facility_id)
+    form = StudentForm12B(initial={
+        'fname':student.fname,
+        'mname':student.mname,
+        'lname':student.lname,
+        'dateofbirth':student.dateofbirth,
+        'grade':student.enrollment,
+        'noshotrecord':student.noshotrecord,
+        'exempt_rel':student.exempt_rel,
+        'exempt_med':student.exempt_med,
+        'dtap1':student.dtap1,
+        'dtap2':student.dtap2,
+        'dtap3':student.dtap3,
+        'dtap4':student.dtap4,
+        'dtap5':student.dtap5,
+        'polio1':student.polio1,
+        'polio2':student.polio2,
+        'polio3':student.polio3,
+        'polio4':student.polio4,
+        'hepb1':student.hepb1,
+        'hepb2':student.hepb2,
+        'hepb3':student.hepb3,
+        'mmr1':student.mmr1,
+        'mmr2':student.mmr2,
+        'varicella1':student.varicella1,
+        'varicella2':student.varicella2,
+        'pe':student.pe,
+        'tb':student.tb,
+        'notes':student.notes})
+    if request.method == 'POST':
+        form = StudentForm12B(request.POST)
+        if 'Delete' in request.POST:
+            s = Student(id = student.pk)
+            s.delete()
+            return HttpResponseRedirect(reverse('reportinput:complete'))
+        if form.is_valid():
+            grade = Enrollment.objects.get(name= form.cleaned_data['grade'])
+            s = Student(id = student.id)
+            s.fname = form.cleaned_data['fname']
+            s.mname = form.cleaned_data['mname']
+            s.lname = form.cleaned_data['lname']
+            s.dateofbirth = form.cleaned_data['dateofbirth']
+            s.enrollment_id = grade.pk
+            s.entry_date = form.cleaned_data['entrydate']
+            s.noshotrecord = form.cleaned_data['noshotrecord']
+            s.exempt_rel = form.cleaned_data['exempt_rel']
+            s.exempt_med = form.cleaned_data['exempt_med']
+            s.dtap1 = form.cleaned_data['dtap1']
+            s.dtap2 = form.cleaned_data['dtap2']
+            s.dtap3 = form.cleaned_data['dtap3']
+            s.dtap4 = form.cleaned_data['dtap4']
+            s.dtap5 = form.cleaned_data['dtap5']
+            s.polio1 = form.cleaned_data['polio1']
+            s.polio2 = form.cleaned_data['polio2']
+            s.polio3 = form.cleaned_data['polio3']
+            s.polio4 = form.cleaned_data['polio4']
+            s.hepb1 = form.cleaned_data['hepb1']
+            s.hepb2 = form.cleaned_data['hepb2']
+            s.hepb3 = form.cleaned_data['hepb3']
+            s.mmr1 = form.cleaned_data['mmr1']
+            s.varicella1 = form.cleaned_data['varicella1']
+            s.pe = form.cleaned_data['pe']
+            s.tb = form.cleaned_data['tb']
+            s.notes = form.cleaned_data['notes']
+            if 'Drop' in request.POST:
+                s.facility_id = None
+            else:
+                s.facility_id = f.pk
+            s.save()
+            if s.dtap1:
+                s.dtap2 = s.dtap1
+                s.save()
+            if s.dtap2:
+                s.dtap3 = s.dtap2
+                s.save()
+            if s.dtap3:
+                s.dtap4 = s.dtap3
+                s.save()
+            if s.dtap4:
+                s.dtap5 = s.dtap4
+            if s.polio1:
+                s.polio2 = s.polio1
+                s.save()
+            if s.polio2:
+                s.polio3 = s.polio2
+                s.save()
+            if s.polio3:
+                s.polio4 = s.polio3
+                s.save()
+            if s.hepb1:
+                s.hepb2 = s.hepb1
+                s.save()
+            if s.hepb2:
+                s.hepb3 = s.hepb2
+                s.save()
+            if s.mmr1:
+                s.mmr2 = s.mmr1
+                s.save()
+            if s.varicella1:
+                s.varicella2 = s.varicella1
+                s.save()
+            return HttpResponseRedirect(reverse('reportinput:complete'))
+    return render(request,'reportinput/studentupdate12b.html', {'form':form,})
+
+def update12a(request, student_id):
+    p = Person.objects.get(pk = request.session['personpk'])
+    if p.role_id == 1:
+        f = Facility.objects.get(pk = request.session['inputid'])
+    else:
+        f = Facility.objects.get(pk = p.facility_id)
+    student = Student.objects.get(pk = student_id)
+    form = StudentForm12A(initial={
+        'fname':student.fname,
+        'mname':student.mname,
+        'lname':student.lname,
+        'dateofbirth':student.dateofbirth,
+        'age':student.age,
+        'noshotrecord':student.noshotrecord,
+        'exempt_rel':student.exempt_rel,
+        'exempt_med':student.exempt_med,
+        'dtap1':student.dtap1,
+        'dtap2':student.dtap2,
+        'dtap3':student.dtap3,
+        'dtap4':student.dtap4,
+        'polio1':student.polio1,
+        'polio2':student.polio2,
+        'polio3':student.polio3,
+        'hib':student.hib,
+        'hepb1':student.hepb1,
+        'hepb2':student.hepb2,
+        'hepb3':student.hepb3,
+        'mmr1':student.mmr1,
+        'varicella1':student.varicella1,
+        'pe':student.pe,
+        'tb':student.tb,
+        'notes':student.notes})
+    if request.method == 'POST':
+        form = StudentForm12A(request.POST)
+        if 'Drop' in request.POST:
+            s = Student(id = student.pk)
+            s.facility_id = None
+            s.save()
+            return HttpResponseRedirect(reverse('reportinput:complete'))
+        if 'Delete' in request.POST:
+            s = Student(id = student.pk)
+            s.delete()
+            return HttpResponseRedirect(reverse('reportinput:complete'))
+        if form.is_valid():
+            s = Student(id = student.id)
+            s.fname = form.cleaned_data['fname']
+            s.mname = form.cleaned_data['mname']
+            s.lname = form.cleaned_data['lname']
+            s.age = form.cleaned_data['age']
+            s.entry_date = form.cleaned_data['entrydate']
+            s.noshotrecord = form.cleaned_data['noshotrecord']
+            s.exempt_rel = form.cleaned_data['exempt_rel']
+            s.exempt_med = form.cleaned_data['exempt_med']
+            s.dtap1 = form.cleaned_data['dtap1']
+            s.dtap2 = form.cleaned_data['dtap2']
+            s.dtap3 = form.cleaned_data['dtap3']
+            s.dtap4 = form.cleaned_data['dtap4']
+            s.polio1 = form.cleaned_data['polio1']
+            s.polio2 = form.cleaned_data['polio2']
+            s.polio3 = form.cleaned_data['polio3']
+            s.hib = form.cleaned_data['hib']
+            s.hepb1 = form.cleaned_data['hepb1']
+            s.hepb2 = form.cleaned_data['hepb2']
+            s.hepb3 = form.cleaned_data['hepb3']
+            s.mmr1 = form.cleaned_data['mmr1']
+            s.varicella1 = form.cleaned_data['varicella1']
+            s.pe = form.cleaned_data['pe']
+            s.tb = form.cleaned_data['tb']
+            s.notes = form.cleaned_data['notes']
+            s.facility_id = f.pk
+            s.save()
+            if s.dtap1:
+                s.dtap2 = s.dtap1
+                s.save()
+            if s.dtap2:
+                s.dtap3 = s.dtap2
+                s.save()
+            if s.dtap3:
+                s.dtap4 = s.dtap3
+                s.save()
+            if s.polio1:
+                s.polio2 = s.polio1
+                s.save()
+            if s.polio2:
+                s.polio3 = s.polio2
+                s.save()
+            if s.hepb1:
+                s.hepb2 = s.hepb1
+                s.save()
+            if s.hepb2:
+                s.hepb3 = s.hepb2
+                s.save()
+            return HttpResponseRedirect(reverse('reportinput:complete'))
+    return render(request,'reportinput/studentupdate12a.html', {'form':form,})
+
 
 @login_required
 def landing12a(request):

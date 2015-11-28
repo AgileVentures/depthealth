@@ -22,6 +22,6 @@
     </table>
     <a href="{% url 'register:facilityinput' %}" class="btn btn-primary btn-lg" role="button">Create Facility</a>
     {% if request.session.role == 1 %}
-    <a href="{% url 'reportviewing:master12b' %} class="btn btn-primary btn=lg" role="button">Generate Master Grade School Report</a>
+    <a href="{% url 'reportviewing:master12b' %}" class="btn btn-primary btn-lg" role="button">Generate Master Grade School Report</a>
     {% endif %}
 {% endblock %}

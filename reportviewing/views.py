@@ -49,7 +49,7 @@ def createschoolcsv(request, report_id):
     return response
 
 def createmasterlist12b(request):
-    students = Student.object.exclude(enrollment_id = 1).order_by('facility')
+    students = Student.objects.exclude(enrollment_id = 1).order_by('facility')
 
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="gradeschoolmaster.csv"'

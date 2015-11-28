@@ -19,7 +19,12 @@
         </tr>
         {% for student in s %}
             <tr>
-                <td>{{ student }}</td>
+                {% if student.enrollment_id > 1 %}
+                    <td><a href="{% url 'reportinput:update12b'  student.id%}">{{ student }}</a></td>
+                {% elif student.enrollment_id == 1 %}
+                    <td><a href="{% url 'reportinput:update12a' student.id %}">{{ student }}</a></td>
+                {% endif %}
+
                 <td>
                     {% if student.exempt_med and student.exempt_rel %}
                         Medical and Religious

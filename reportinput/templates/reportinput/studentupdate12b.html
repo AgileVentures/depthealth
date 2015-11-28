@@ -1,13 +1,12 @@
 {% extends 'login/base.html' %}
 
 {% block content %}
-    <h1 style="text-align: center">EPI12A</h1>
+    <h1 style="text-align: center">EPI12B</h1>
     <form action="" method="post">
     {% csrf_token %}
-    {{ formset.management_form }}
-    {{ formset.non_form_errors.as_ul }}
-    <table id ="formset" class="form">
-    {% for form in formset.forms %}
+
+    <table>
+
         <table class="bottom">
         <table width="100%">
         <tr bgcolor="#deb887">
@@ -15,7 +14,7 @@
             <td class="all">Middle Name</td>
             <td class="all">Last Name</td>
             <td class="all">Date of Birth</td>
-            <td class="all">Age</td>
+            <td class="all">Grade</td>
             <td class="all">Entry Date</td>
         </tr>
         <tr>
@@ -23,7 +22,7 @@
             <td class="all">{{ form.mname }}</td>
             <td class="all">{{ form.lname }}</td>
             <td class="all">{{ form.dateofbirth }}</td>
-            <td class="all">{{ form.age }}</td>
+            <td class="all">{{ form.grade }}</td>
             <td class="all">{{ form.entrydate }}</td>
         </tr>
         </table>
@@ -31,12 +30,11 @@
         <tr bgcolor="#fff8dc">
             <td class="top3" style="text-align: center">No Immunization</td>
             <td colspan="2" class="all">Exempt</td>
-            <td colspan="4" class="all">DTaP/DTP/DT</td>
-            <td colspan="3" class="all">Polio</td>
-            <td class="all">HIB</td>
+            <td colspan="5" class="all">DTaP/DTP/DT</td>
+            <td colspan="4" class="all">Polio</td>
             <td colspan="3" class="all">Hepatitis B</td>
-            <td class="all">MMR</td>
-            <td class="all">Varicella</td>
+            <td class="all" colspan="2">MMR</td>
+            <td class="all" colspan="2">Varicella</td>
             <td></td>
             <td></td>
         </tr>
@@ -49,15 +47,18 @@
             <td class="all">2</td>
             <td class="all">3</td>
             <td class="all">4</td>
+            <td class="all">5</td>
+            <td class="all">1</td>
+            <td class="all">2</td>
+            <td class="all">3</td>
+            <td class="all">4</td>
             <td class="all">1</td>
             <td class="all">2</td>
             <td class="all">3</td>
             <td class="all">1</td>
+            <td class="all">2</td>
             <td class="all">1</td>
             <td class="all">2</td>
-            <td class="all">3</td>
-            <td class="all">1</td>
-            <td class="all">1</td>
             <td class="all">PE</td>
             <td class="all">TB</td>
         </tr>
@@ -69,15 +70,18 @@
             <td class="all">{{ form.dtap2 }}</td>
             <td class="all">{{ form.dtap3 }}</td>
             <td class="all">{{ form.dtap4 }}</td>
+            <td class="all">{{ form.dtap5 }}</td>
             <td class="all">{{ form.polio1 }}</td>
             <td class="all">{{ form.polio2 }}</td>
             <td class="all">{{ form.polio3 }}</td>
-            <td class="all">{{ form.hib }}</td>
+            <td class="all">{{ form.polio4 }}</td>
             <td class="all">{{ form.hepb1 }}</td>
             <td class="all">{{ form.hepb2 }}</td>
             <td class="all">{{ form.hepb3 }}</td>
             <td class="all">{{ form.mmr1 }}</td>
+            <td class="all">{{ form.mmr2 }}</td>
             <td class="all">{{ form.varicella1 }}</td>
+            <td class="all">{{ form.varicella2 }}</td>
             <td class="all">{{ form.pe }}</td>
             <td class="all">{{ form.tb }}</td>
         </tr>
@@ -91,9 +95,17 @@
         </tr>
         </table>
         </table>
-    {% endfor %}
+    <tr>
+        {% if request.session.role == 1 %}
+    <td><button class="btn-lg" type="submit" name="Delete">Delete Student</button></td>
+        {% endif %}
+        {% if request.session.role != 3 %}
+    <td><button class="btn-lg" type="submit" name="Drop">Remove Student from School</button></td>
+        {% endif %}
+    <td><button class="btn-lg" type="submit" name="Submit">Make Changes</button></td>
+    </tr>
     </table>
-    <input type="submit" value="Submit">
+
 
     </form>
 {% endblock %}
