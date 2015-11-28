@@ -1,11 +1,9 @@
 {% extends 'login/base.html' %}
 {% load staticfiles %}
-{% block person %}
-    {{ p }}
-{% endblock %}
 {% block content %}
     {% csrf_token %}
     <table width="50%" align="left">
+    <tr align="center"><td><p>Welcome {{ p }}!</p></td></tr>
     {% if request.session.role == 1 %}
     <tr align="center"><td><p><a href="{% url 'register:facilitylist' %}" class="btn btn-primary btn-lg" role="button">Manage Facility</a></p></td></tr>
     <tr align="center"><td><p><a href="{% url 'register:userlist' %}" class="btn btn-primary btn-lg" role="button">Manage User's</a></p></td></tr>

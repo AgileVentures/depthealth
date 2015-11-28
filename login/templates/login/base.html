@@ -20,8 +20,6 @@
 	  <div class="navbar-collapse collapse">
 	    <img src="{% static "login/header.gif" %}" alt="Header" />
 	    <ul class="nav navbar-nav navbar-right">
-            <li> Aloha {% block person %}
-          {% endblock %}</li>
 	      <li><a href="{% url 'faq:category' %}">FAQ</a></li>
 	      <li><a href="{% url 'login:logout' %}">Logout</a></li>
 	    </ul>

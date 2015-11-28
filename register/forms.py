@@ -26,7 +26,6 @@ class CreateUser(forms.Form):
     fax = forms.IntegerField(max_value=9999999999, required=False)
     title = forms.CharField(max_length=50, required=False)
     facility = forms.ModelChoiceField(Facility.objects.all())
-    role = forms.ModelChoiceField(Role.objects.all())
     class Meta:
         model = Person
 

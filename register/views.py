@@ -72,11 +72,10 @@ def createuser(request):
             phone = form.cleaned_data['phone']
             fax = form.cleaned_data['fax']
             title = form.cleaned_data['title']
-            role = Role.objects.get(name = form.cleaned_data['role'])
             p = Person(fname=fname, mname=mname, lname=lname, phone=phone,fax=fax,title=title)
             p.email_id = User.objects.get(pk = u)
             p.facility_id=fac.pk
-            p.role_id=role.pk
+            p.role_id=3
             p.save()
             uname = User.objects.get(pk = p.email_id)
             user = uauth.objects.create_user(password=uname.password, username = uname.pk, first_name = p.fname, last_name = p.lname)
@@ -131,8 +130,10 @@ def modifyuser(request, person_id):
         if 'Delete' in request.POST:
             p = Person.objects.get(pk = person_id)
             u = User.objects.get(pk = p.email_id)
+            ua = uauth.objects.get(username= u.username)
             p.delete()
             u.delete()
+            ua.delete()
             return HttpResponseRedirect(reverse('login:landingpage'))
         if 'Change' in request.POST:
             form = ModifyUser(request.POST)
