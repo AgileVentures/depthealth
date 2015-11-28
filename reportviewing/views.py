@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from register.models import Facility, Person, Enrollment, Island, District
 from reportinput.models import Student, Report
+from django.db.models import Q
 import csv
 # Create your views here.
 
@@ -47,20 +48,18 @@ def createschoolcsv(request, report_id):
 
     return response
 
-def islandfilter(request):
-    islands = Island.objects.all()
-    return render(request, 'reportviewing/islandfilter.html', {'islands':islands,})
+def listofstudents(request):
+    f = Facility.objects.get(pk = request.session['inputid'])
+    type = request.session['type']
+    if type == 1 and f.pk > 1:
+        s = Student.objects.filter(facility_id = f.pk, exempt_med=True).order_by('lname').order_by('fname')
+    if type == 2 and f.pk > 1:
+        s = Student.objects.filter(facility_id = f.pk, exempt_rel=True).order_by('lname').order_by('fname')
+    if type == 3 and f.pk > 1:
+        s = Student.objects.filter(facility_id = f.pk).filter(Q(exempt_med=True)| Q(exempt_rel=True)).order_by('lname').order_by('fname')
+    if type == 4 and f.pk > 1:
+        s = Student.objects.exclude(uptodate = True).filter(facility_id = f.pk)
 
-def districtfilter(request, island_id):
-    if island_id != 1:
-        districts = District.objects.filter(island_id=island_id)
-    else:
-        districts = District.objects.all()
-    return render(request, 'reportviewing/districtfilter.html', {'districts':districts,})
+    return render(request, 'reportviewing/students.html',{'s':s, 'n':type,'f':f})
 
-def schoolfilter(request, district_id):
-    schools = Facility.objects.filter(district_id=district_id)
-    return render(request, 'reportviewing/schoolfilter.html',{'schools':schools,})
 
-def dohreport(request, facility_id):
-    reports = Report.objects.filter(facility_id = facility_id)

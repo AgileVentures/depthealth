@@ -9,7 +9,7 @@
         </tr>
     {% for person in object_list %}
         <tr>
-            <td><a href="{% url 'register:modifyuser' person.id%}"> {{ person }}</a></td>
+            <td><a href="{% url 'register:modatschool' person.id%}"> {{ person }}</a></td>
             <td>{{ person.facility }}</td>
             <td>{{ person.role }}</td>
             <td>{{ person.verified }}</td>

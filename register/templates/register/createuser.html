@@ -1,4 +1,4 @@
-{% extends 'login/base.html' %}
+{% extends 'login/otherbase.htmlbase.html' %}
 
 {% block content %}
     <form action="" method="post">
@@ -31,6 +31,10 @@
         <tr>
             <td>Facility:</td>
             <td>{{ form.facility }}</td>
+        </tr>
+        <tr>
+            <td>Role:</td>
+            <td>{{ form.role }}</td>
         </tr>
     </table>
     <input type="submit" name="submit" value="Return to Login">

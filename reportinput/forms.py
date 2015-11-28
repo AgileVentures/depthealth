@@ -68,7 +68,7 @@ class StudentForm12B(forms.Form):
         model = Student
 
 class SchoolInfo(forms.Form):
-    kinder_enroll = forms.IntegerField()
+    kinder_enroll = forms.IntegerField(required=False)
     lowest_grade = forms.ModelChoiceField(Enrollment.objects.all())
     highest_grade = forms.ModelChoiceField(Enrollment.objects.all())
     other_enroll = forms.IntegerField()

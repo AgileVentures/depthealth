@@ -1,9 +1,24 @@
 {% extends 'login/base.html' %}
 {% block content %}
+    <table width="100%">
+    <tr>
+        <th align="center">School Name</th>
+        <th align="center">Address</th>
+        <th align="center">City</th>
+        <th align="center">Zip</th>
+        <th align="center">Phone</th>
+        <th align="center">Total Enrollment</th>
+    </tr>
     {% for facility in object_list %}
-        <li>
-            <a href="{% url 'register:modify' facility.id%}"> {{ facility.name }}</a>
-        </li>
+        <tr>
+            <td align="center"><a href="{% url 'register:facilitylanding' facility.id%}"> {{ facility.name }}</a></td>
+            <td>{{ facility.street }}</td>
+            <td>{{ facility.city }}</td>
+            <td>{{ facility.zip }}</td>
+            <td>{{ facility.phone }}</td>
+            <td>{{ facility.total_enrolled }}</td>
+        </tr>
     {% endfor %}
+    </table>
     <a href="{% url 'register:facilityinput' %}" class="btn btn-primary btn-lg" role="button">Create Facility</a>
 {% endblock %}

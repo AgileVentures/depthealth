@@ -1,39 +1,6 @@
 {% extends 'login/base.html' %}
 {% load staticfiles %}
 {% block content %}
-<nav class="collapse navbar-inverse navbar-collapse bs-navbar-collapse" role="navigation">
-  <div class="container-fluid">
-    {% csrf_token %}
-<<<<<<< HEAD
-    <table width="50%" align="left">
-    <tr align="center"><td><p>Welcome {{ p }}!</p></td></tr>
-    {% if request.session.role == 1 %}
-    <tr align="center"><td><p><a href="{% url 'register:facilitylist' %}" class="btn btn-primary btn-lg" role="button">Manage Facility</a></p></td></tr>
-    <tr align="center"><td><p><a href="{% url 'register:userlist' %}" class="btn btn-primary btn-lg" role="button">Manage User's</a></p></td></tr>
-=======
-      <ul class="nav navbar-nav">
-      {% if request.session.role == 1 %}
-    <li><a href="{% url 'register:facilitylist' %}">Manage Facility</a></li>
-    <li><a href="{% url 'register:userlist' %}">Manage User's</a></li>
->>>>>>> 0ceabb88974cebe403469fd47f296d01317f1c5a
-    {% endif %}
-    {% if request.session.hasprek == 1 and request.session.role != 1 %}
-    <li><a href="{% url 'reportinput:landing12a' %}">Create EPI12A</a></li>
-    {% endif %}
-    {% if request.session.onlyprk == 0 and request.session.role != 1 %}
-    <li><a href="{% url 'reportinput:landing12b' %}">Create EPI12B</a></li>
-    {% endif %}
-    {% if request.session.role != 1 %}
-    <li><a href="{% url 'reportviewing:date' %}">View Reports</a></li>
-    {% endif %}
-    {% if request.session.role != 1 %}
-    <li><a href="{% url 'support:create' %}">Support Request</a></li>
-    {% else %}
-    <li><a href="{% url 'support:open' %}">Support Request</a></li>
-    {% endif %}
-    </ul>
-</div>
-</nav>
     <table width="50%" align="right">
         <tr align="center">
             <td><img src="{% static 'login/se.jpg' %}" /></td>

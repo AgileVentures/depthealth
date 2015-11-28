@@ -1,0 +1,24 @@
+{% extends 'login/base.html' %}
+{% block content %}
+    <h1 align="center">{{ f }}</h1>
+    {% if n == 1 %}
+        <h2 align="center">Medical Exemptions</h2>
+    {% elif n == 2 %}
+        <h2 align="center">Religious Exemptions</h2>
+    {% elif n == 3 %}
+        <h2 align="center">All Exemptions</h2>
+    {% elif n == 4%}
+        <h2 align="center">All Students</h2>
+    {% endif %}
+    {% if s %}
+        <table>
+        {% for student in s %}
+            <tr>
+                <td>{{ student }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <p>No students</p>
+    {% endif %}
+{% endblock %}

@@ -5,10 +5,12 @@
 	<legend class="login">Create EPI12B</legend>
         <form action="" method="post">
         {% csrf_token %}
+            {% if f.lowest_grade_id < 2 %}
             <div class="form-group">
                 <label>Kindergarten Enrollment:</label>
                 {{ form.kinder_enroll }}
             </div>
+            {% endif %}
             <div class="form-group">
                 <label>Lowest Grade</label>
                 {{ form.lowest_grade }}

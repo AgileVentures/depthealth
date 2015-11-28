@@ -51,6 +51,7 @@ def epi12a(request):
                 s.tb = form.cleaned_data['tb']
                 s.notes = form.cleaned_data['notes']
                 s.report_id = r.pk
+                s.facility_id = f.pk
                 count += 1
                 s.save()
         return HttpResponseRedirect(reverse('complete'))
@@ -63,9 +64,12 @@ def epi12b(request):
     formset = formset_factory(StudentForm12B, extra=request.session['students'])
     if request.method =='POST':
         p = Person.objects.get(pk = request.session['personpk'])
-        f = Facility.objects.get(pk = p.facility_id)
+        if p.role_id == 1:
+            f = Facility.objects.get(pk = request.session['inputid'])
+        else:
+            f = Facility.objects.get(pk = p.facility_id)
         count = f.count - request.session['students']
-        r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
+        r = Report(person_id=p.pk, facility_id=f.pk,entrydate=datetime.datetime.today())
         r.save()
         formset = formset(request.POST, request.FILES)
         for form in formset:
@@ -104,6 +108,7 @@ def epi12b(request):
                 s.tb = form.cleaned_data['tb']
                 s.notes = form.cleaned_data['notes']
                 s.report_id = r.pk
+                s.facility_id = f.pk
                 count += 1
                 s.save()
         return HttpResponseRedirect(reverse('reportinput:complete'))
@@ -133,7 +138,7 @@ def landing12a(request):
                 f.count = f.count + form.cleaned_data['students']
                 f.save()
                 request.session['students'] = form.cleaned_data['students']
-                return HttpResponseRedirect(reverse('epi12a'))
+                return HttpResponseRedirect(reverse('reportinput:epi12a'))
     else:
         form = PreKInfo()
     return  render(request,'reportinput/landing12a.html',{'form':form})
@@ -151,11 +156,14 @@ def landing12b(request):
             highest_grade = Enrollment.objects.get(name = form.cleaned_data['highest_grade'])
             other_enroll = form.cleaned_data['other_enroll']
             students = form.cleaned_data['students_to_input']
-            f.kinder_enroll = kinder_enroll
             f.lowest_grade_id = lowest_grade.pk
             f.highest_grade_id = highest_grade.pk
             f.other_enroll = other_enroll
-            f.total_enrolled = other_enroll + kinder_enroll
+            if kinder_enroll is not None:
+                f.kinder_enroll = kinder_enroll
+                f.total_enrolled = other_enroll + kinder_enroll
+            else:
+                f.total_enrolled = other_enroll
             if students == 0:
                 f.allimmune = True
                 f.save()
@@ -167,8 +175,8 @@ def landing12b(request):
                 request.session['students'] = students
                 return HttpResponseRedirect(reverse('reportinput:epi12b'))
     else:
-        form = SchoolInfo()
-    return  render(request,'reportinput/landing12b.html',{'form':form})
+        form = SchoolInfo(initial={'lowest_grade':f.lowest_grade,'highest_grade':f.highest_grade})
+    return  render(request,'reportinput/landing12b.html',{'form':form, 'f':f,})
 
 @login_required
 def complete(request):

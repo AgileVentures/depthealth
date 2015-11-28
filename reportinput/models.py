@@ -36,9 +36,14 @@ class Student(models.Model):
     varicella2 = models.BooleanField(default=0)
     pe = models.BooleanField(default=0)
     tb = models.BooleanField(default=0)
+    facility = models.ForeignKey(info.Facility, null=True)
+    uptodate = models.BooleanField(default=0)
 
     class Meta:
         db_table = 'student'
+
+    def __str__(self):
+        return '{} {}'.format(self.fname, self.lname)
 
 class Report(models.Model):
     id = models.AutoField(primary_key=True, unique=True)

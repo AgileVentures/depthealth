@@ -27,6 +27,7 @@ class Person(models.Model):
     fax = models.BigIntegerField(null=True, blank=True)
     title = models.CharField(max_length=50, null=True, blank=True)
     facility = models.ForeignKey('Facility', blank=True,null=True)
+    verified = models.BooleanField(default=False)
     email = models.ForeignKey('User')
     role = models.ForeignKey('Role')
     class Meta:

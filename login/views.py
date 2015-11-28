@@ -19,11 +19,13 @@ def loginscreen(request):
                     login(request, user)
                     request.session['personpk'] = person.pk
                     request.session['role'] = person.role_id
+                    request.session['fac'] = person.facility_id
                     if(person.facility_id > 0):
                         f = Facility.objects.get(pk = person.facility_id)
                         request.session['hasprek'] = f.has_pre_k
                         request.session['onlyprk'] = f.is_only_pre_k
-                    return render(request,'login/landingpage.html', {'p':person})
+                    if person.verified:
+                        return render(request,'login/landingpage.html', {'p':person})
             except u.DoesNotExist:
                 HttpResponseRedirect('')
 
@@ -41,7 +43,7 @@ def resetpassword(request):
     if request.method == 'POST':
         form = ResetPassword(request.POST)
         if form.is_valid():
-            user = User.objects.get(pk = form.cleaned_data['username'])
+            user = u.objects.get(pk = form.cleaned_data['username'])
             if user.password == form.cleaned_data['old_password']:
                 if form.cleaned_data['new_password1'] == form.cleaned_data['new_password1']:
                     user.password = form.cleaned_data['new_password2']
