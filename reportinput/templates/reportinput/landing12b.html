@@ -1,34 +1,33 @@
 {% extends 'login/base.html' %}
 {% load staticfiles %}
 {% block content %}
-    <form action="" method="post">
-    {% csrf_token %}
-        <table cellspacing="20" align="center">
-            <p><tr>
-                <td>Kindergarten Enrollment:</td>
-                <td>{{ form.kinder_enroll }}</td>
-            </tr></p>
-            <p><tr>
-                <td>Lowest Grade:</td>
-                <td>{{ form.lowest_grade }}</td>
-            </tr></p>
-            <p><tr>
-                <td>Highest Grade:</td>
-                <td>{{ form.highest_grade }}</td>
-            </tr></p>
-            <p><tr>
-                <td>Total Enrollment Excluding K:</td>
-                <td>{{ form.other_enroll }}</td>
-            </tr></p>
-            <p><tr>
-                <td>Amount of Students to Input:</td>
-                <td>{{ form.students_to_input }}</td>
-            </tr></p>
-            <tr>
-                <td colspan="2" align="center"><button class="btn-lg btn-primary" type="submit">SUBMIT</button></td>
-            </tr>
-        </table>
-    </form>
+ <fieldset class="login">
+	<legend class="login">Create EPI12B</legend>
+        <form action="" method="post">
+        {% csrf_token %}
+            <div class="form-group">
+                <label>Kindergarten Enrollment:</label>
+                {{ form.kinder_enroll }}
+            </div>
+            <div class="form-group">
+                <label>Lowest Grade</label>
+                {{ form.lowest_grade }}
+            </div>
+            <div class="form-group">
+                <label>Highest Grade</label>
+                {{ form.highest_grade }}
+            </div>
+            <div class="form-group">
+                <label>Total Enrollment Excluding K:</label>
+                {{ form.other_enroll }}
+            </div>
+            <div class="form-group">
+                <label>Amount of Students to Input:</label>
+                {{ form.students_to_input }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+     </fieldset>
     <table align="center">
         <tr>
             <td><img src="{% static 'login/webdev.jpg' %}" align="middle" height="285" width="480"/></td>

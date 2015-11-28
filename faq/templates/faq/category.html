@@ -1,11 +1,11 @@
 {% extends 'login/base.html' %}
 {% block content %}
-    {% if categories %}
+{% if categories %}
+       <div class="list-group">
         {% for category in categories %}
-            <li>
-                <a href="{% url 'faq:questions' category.id %}">{{ category.name }}</a>
-            </li>
+         <a href="{% url 'faq:questions' category.id %}" class="list-group-item">{{ category.name }}</a>
         {% endfor %}
+        </div>
     {% endif %}
     <a href="{% url 'login:login' %}">Return to Login Screen</a>
 {% endblock %}

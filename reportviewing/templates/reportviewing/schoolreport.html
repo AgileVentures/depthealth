@@ -1,5 +1,6 @@
 {% extends 'login/base.html' %}
 {% block content %}
+<h3>School Reports</h3>
     <form action="" method="post">
     {% csrf_token %}
     {% for student in students %}
@@ -15,9 +16,9 @@
                 Religious Exemption
             {% endif %}
         </li>
-
     {% endfor %}
-    <input type="submit" value="Create CSV">
+        <br />
+    <input type="submit" value="Create CSV" class="btn btn-info">
     </form>
     <a href="{% url 'login:landingpage' %}">Return to Main Screen</a>
 {% endblock %}

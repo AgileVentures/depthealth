@@ -2,11 +2,14 @@
 {% block content %}
     {% if reports %}
     {% csrf_token %}
+    <h3>Reports</h3>
+    <ul>
     {% for report in reports %}
         <li>
             <a href="{% url 'reportviewing:schoolreport' report.id %}">{{ report }}</a>
         </li>
     {% endfor %}
+    </ul>
     {% else %}
         <p>No Reports to Show</p>
     <a href="{% url 'login.views.landingpage' %}">Return to Main Screen</a>
