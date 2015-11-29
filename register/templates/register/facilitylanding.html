@@ -1,42 +1,37 @@
 {% extends 'login/base.html' %}
 {% block content %}
-    <table width="100%">
-        <tr bgcolor="#00bfff">
-            <th>Name</th>
-        </tr>
-        <tr><td>{{ f.name }}</td></tr>
-    </table>
-    <table width="100%">
-        <tr bgcolor="#00bfff">
+<fieldset class="login">
+    <legend class="login">Facility: {{ f.name }}</legend>
+    <table class="table table-striped">
+        <thead>
+        <tr>
             <th>Address</th>
             <th>City</th>
             <th>Zip</th>
             <th>Island</th>
             <th>District</th>
-        </tr>
-        <tr>
-            <td>{{ f.street }}</td>
-            <td>{{ f.city }}</td>
-            <td>{{ f.zip }}</td>
-            <td>{{ d.island }}</td>
-            <td>{{ f.district }}</td>
-        </tr>
-    </table>
-    <table width="100%">
-        <tr bgcolor="#00bfff">
             <th>Phone</th>
             <th>Fax</th>
             <th>Principal/Director</th>
         </tr>
+        </thead>
+        <tbody>
         <tr>
+            <td>{{ f.street }}</td>
+            <td>{{ f.city }}</td>
+            <td>{{ f.zip }}</td>
+            <td>{{ f.island }}</td>
+            <td>{{ f.district }}</td>
             <td>{{ f.phone }}</td>
             <td>{{ f.fax }}</td>
             <td>{{ p }}</td>
         </tr>
+        </tbody>
     </table>
+
     {% if f.is_only_pre_k != True %}
-    <table width="100%">
-        <tr bgcolor="#00bfff">
+    <table class="table table-striped">
+        <tr>
             <th>Lowest Grade</th>
             <th>Highest Grade</th>
             <th>Total Enrollment</th>
@@ -48,9 +43,10 @@
         </tr>
     </table>
     {% endif %}
+
     {% if f.has_pre_k %}
-        <table width="100%">
-            <tr bgcolor="#00bfff">
+        <table class="table table-striped">
+            <tr>
                 <th>Under 19 Months</th>
                 <th>19 Months and Over</th>
                 <th>Total in Pre-K</th>
@@ -62,25 +58,24 @@
             </tr>
         </table>
     {% endif %}
-    <table width="100%">
+
     <form action="" method="post">
+    <table width="100%">
                 {% csrf_token %}
         <tr>
-            <td align="center"><a href="{% url 'register:modify' f.id%}" class="btn btn-lg btn-primary" role="button"> Modify Facility Information</a></td>
+            <td align="center"><a href="{% url 'register:modify' f.id%}" class="btn btn-primary" role="button">Modify Facility Information</a></td>
                 {% if f.has_pre_k %}
-                <td align="center"><button class="btn-lg" type="submit" name="12a">Create PreK Report</button></td>
+                <td align="center"><button class="btn btn-primary" type="submit" name="12a">Create PreK Report</button></td>
                  {% endif %}
                 {% if not f.is_only_pre_k %}
-                <td align="center"><button class="btn-lg" type="submit" name="12b">Create Grade School Report</button></td>
+                <td align="center"><button class="btn btn-primary" type="submit" name="12b">Create Grade School Report</button></td>
                 {% endif %}
-            </tr>
-                <td><button class="btn-lg" type="submit" name="Med">Medical Exemptions</button></td>
-                <td><button class="btn-lg" type="submit" name="Rel">Religious Exemptions</button></td>
-                <td><button class="btn-lg" type="submit" name="Ex">Exemptions</button></td>
-                <td><button class="btn-lg" type="submit" name="All">All Students</button></td>
+                <td><button class="btn btn-primary" type="submit" name="Med">Medical Exemptions</button></td>
+                <td><button class="btn btn-primary" type="submit" name="Rel">Religious Exemptions</button></td>
+                <td><button class="btn btn-primary" type="submit" name="Ex">Exemptions</button></td>
+                <td><button class="btn btn-primary" type="submit" name="All">All Students</button></td>
             <tr>
-            </form>
-
         </tr>
     </table>
+    </form>
 {% endblock %}

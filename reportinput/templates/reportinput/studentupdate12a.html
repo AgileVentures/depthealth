@@ -88,12 +88,12 @@
         </table>
     <tr>
         {% if request.session.role == 1 %}
-    <td><button class="btn-lg" type="submit" name="Delete">Delete Student</button></td>
+    <td><button class="btn btn-primary" type="submit" name="Delete">Delete Student</button></td>
         {% endif %}
         {% if request.session.role == 1 or request.session == 2 %}
-    <td><button class="btn-lg" type="submit" name="Drop">Remove Student from School</button></td>
+    <td><button class="btn btn-primary" type="submit" name="Drop">Remove Student from School</button></td>
         {% endif %}
-    <td><button class="btn-lg" type="submit" name="Submit">Make Changes</button></td>
+    <td><button class="btn btn-primary" type="submit" name="Submit">Make Changes</button></td>
     </tr>
     </table>
     </form>
