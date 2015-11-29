@@ -7,22 +7,22 @@
             <td>School Name: {{ form.name }}</td>
             <td>District: {{ form.district }}</td>
             <td>Island: {{ form.island }}</td>
-            <td><input type="submit" value="submit" name="Filter"></td>
+            <td><input type="submit" value="submit" name="Filter" class="btn btn-primary"></td>
         </tr>
         </table>
     </form>
-    <table width="100%">
+    <table class="table table-striped">
     <tr>
-        <th align="center">School Name</th>
-        <th align="center">Address</th>
-        <th align="center">City</th>
-        <th align="center">Zip</th>
-        <th align="center">Phone</th>
-        <th align="center">Total Enrollment</th>
+        <th>School Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Zip</th>
+        <th>Phone</th>
+        <th>Total Enrollment</th>
     </tr>
     {% for facility in object_list %}
         <tr>
-            <td align="center"><a href="{% url 'register:facilitylanding' facility.id%}"> {{ facility.name }}</a></td>
+            <td><a href="{% url 'register:facilitylanding' facility.id%}"> {{ facility.name }}</a></td>
             <td>{{ facility.street }}</td>
             <td>{{ facility.city }}</td>
             <td>{{ facility.zip }}</td>
@@ -31,8 +31,9 @@
         </tr>
     {% endfor %}
     </table>
-    <a href="{% url 'register:facilityinput' %}" class="btn btn-primary btn-lg" role="button">Create Facility</a>
+    <a href="{% url 'register:facilityinput' %}">Create Facility</a>
     {% if request.session.role == 1 %}
-    <a href="{% url 'reportviewing:master12b' %}" class="btn btn-primary btn-lg" role="button">Generate Master Grade School Report</a>
+    |
+    <a href="{% url 'reportviewing:master12b' %}">Generate Master Grade School Report</a>
     {% endif %}
 {% endblock %}
