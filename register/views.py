@@ -3,9 +3,11 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from .forms import CreateFacility, CreateUser, Username, ModifyUser, FacilityFilter
-from .models import  Facility, District, Role, User, Person, Enrollment
+from .models import  Facility, District, Role, User, Person, Enrollment, Island
 from django.contrib.auth.models import User as uauth
 from django.views.generic.list import ListView
+from django.db.models import Q
+import operator
 
 # Create your views here.
 
@@ -43,6 +45,14 @@ def facilitylist(request):
         object_list = Facility.objects.all()
     else:
         object_list = Facility.objects.filter(name__icontains=request.session['schoolfilter'])
+    if request.session['district'] != 'all':
+        d = District.objects.get(pk = request.session['district'])
+        object_list = object_list.filter(district_id = d.pk)
+    if request.session['island'] != 'all':
+        i = Island.objects.get(pk = request.session['island'] )
+        districts = District.objects.filter(island_id=i.pk)
+        object_list = object_list.filter(reduce(operator.or_,[Q(district_id = d.pk) for d in districts]))
+
     if request.method=='POST':
         form = FacilityFilter(request.POST)
         if form.is_valid():
@@ -50,6 +60,15 @@ def facilitylist(request):
                 request.session['schoolfilter'] = 'all'
             else:
                 request.session['schoolfilter'] = form.cleaned_data['name']
+            if form.cleaned_data['island'] is None:
+                request.session['island'] = 'all'
+            else:
+                request.session['island'] = Island.objects.get(pk =
+form.cleaned_data['island']).pk
+            if form.cleaned_data['district'] is None:
+                request.session['district'] = 'all'
+            else:
+                request.session['district'] = District.objects.get(name= form.cleaned_data['district']).pk
             return HttpResponseRedirect(reverse('register:facilitylist'))
     return render(request,'register/facility_list.html',{'form':form, 'object_list':object_list})
 

@@ -7,5 +7,6 @@ urlpatterns =[
     url(r'^(?P<report_id>[0-9]+)/$',views.schoolreport,name='schoolreport'),
     url(r'^(?P<report_id>[0-9]+)/csv', views.createschoolcsv, name='csv'),
     url(r'master12b', views.createmasterlist12b, name='master12b'),
-    url(r'^students', views.listofstudents, name='students')
+    url(r'^students', views.listofstudents, name='students'),
+    url(r'^studentfilter',views.studentfilter, name='studentfilter')
 ]

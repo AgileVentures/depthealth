@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from register.models import Facility, Person, Enrollment, Island, District
 from reportinput.models import Student, Report
 from django.db.models import Q
+from django import forms
 import csv
 # Create your views here.
 
@@ -121,6 +122,7 @@ def createmasterlist12b(request):
 def listofstudents(request):
     f = Facility.objects.get(pk = request.session['inputid'])
     type = request.session['type']
+    s = Student.objects.all()
     if type == 1 and f.pk > 1:
         s = Student.objects.filter(facility_id = f.pk, exempt_med=True).order_by('lname').order_by('fname')
     if type == 2 and f.pk > 1:
@@ -129,7 +131,32 @@ def listofstudents(request):
         s = Student.objects.filter(facility_id = f.pk).filter(Q(exempt_med=True)| Q(exempt_rel=True)).order_by('lname').order_by('fname')
     if type == 4 and f.pk > 1:
         s = Student.objects.exclude(uptodate = True).filter(facility_id = f.pk)
-
     return render(request, 'reportviewing/students.html',{'s':s, 'n':type,'f':f})
 
+def studentfilter(request):
+    form = StudentFilter()
+    person = Person.objects.get(pk = request.session['personpk'])
+    if person.role_id == 1:
+        students = Student.objects.all()
+    else:
+        students = Student.objects.filter(facility_id=person.facility_id)
 
+    if request.session['lname'] != 'all':
+        if person.role_id == 1:
+            students = Student.objects.filter(lname__icontains=request.session['lname'])
+        else:
+            students = Student.objects.filter(facility_id = person.facility_id).filter(lname__icontains=request.session['lname'])
+
+    if request.method=='POST':
+        form = StudentFilter(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['lname'] is None:
+                request.session['lname'] = 'all'
+            else:
+                request.session['lname'] = form.cleaned_data['lname']
+        return HttpResponseRedirect(reverse('reportviewing:studentfilter'))
+    return render(request, 'reportviewing/studentlist.html', {'students':students,'form':form,})
+
+class StudentFilter(forms.Form):
+
+    lname = forms.CharField(max_length=50, required=False)

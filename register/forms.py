@@ -54,3 +54,5 @@ class Username(forms.Form):
 
 class FacilityFilter(forms.Form):
     name = forms.CharField(required=False)
+    island = forms.ModelChoiceField(Island.objects.all(), required=False)
+    district = forms.ModelChoiceField(District.objects.all(), required=False)

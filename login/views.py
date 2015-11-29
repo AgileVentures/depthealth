@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from .forms import Login, ResetPassword
 from register.models import User as u, Person, Facility
+import reportinput
 
 # Create your views here.
 def loginscreen(request):
@@ -22,12 +23,13 @@ def loginscreen(request):
                     request.session['fac'] = person.facility_id
                     if person.role_id == 1:
                         request.session['schoolfilter'] = 'all'
-                    else:
-                        request.session['schoolfilter'] = person.facility
+                        request.session['island'] = 'all'
+                        request.session['district'] = 'all'
                     if(person.facility_id > 0):
                         f = Facility.objects.get(pk = person.facility_id)
                         request.session['hasprek'] = f.has_pre_k
                         request.session['onlyprk'] = f.is_only_pre_k
+                    request.session['lname'] = 'all'
                     if person.verified:
                         return render(request,'login/landingpage.html', {'p':person})
             except u.DoesNotExist:

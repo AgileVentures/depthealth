@@ -4,8 +4,9 @@
         {% csrf_token %}
         <table width="100%">
         <tr>
-            <td>School Name:</td>
-            <td>{{ form.name }}</td>
+            <td>School Name: {{ form.name }}</td>
+            <td>District: {{ form.district }}</td>
+            <td>Island: {{ form.island }}</td>
             <td><input type="submit" value="submit" name="Filter"></td>
         </tr>
         </table>
