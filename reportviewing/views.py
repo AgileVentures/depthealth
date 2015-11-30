@@ -77,8 +77,8 @@ def createschoolcsva(request, report_id):
             name = '{} {} {}'.format(student.fname, student.mname, student.lname)
         writer.writerow([student.id,
                          name,
+                         student.dateofbirth,
                          student.age,
-                         student.enrollment,
                          student.noshotrecord,
                          student.exempt_med,
                          student.exempt_rel,
@@ -107,7 +107,7 @@ def createschoolcsvb(request, report_id):
     students = Student.objects.filter(report_id=r.pk)
     f = Facility.objects.get(pk = r.facility_id)
 
-    students = Student.objects.exclude(enrollment_id = 1).order_by('facility')
+    students = students.exclude(enrollment_id = 1)
 
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="gradeschoolmaster.csv"'
@@ -216,9 +216,9 @@ def createmasterlist12a(request):
             name = '{} {} {}'.format(student.fname, student.mname, student.lname)
         writer.writerow([student.id,
                          name,
-                         student.age,
+                         student.dateofbirth,
                          student.facility,
-                         student.enrollment,
+                         student.age,
                          student.noshotrecord,
                          student.exempt_med,
                          student.exempt_rel,

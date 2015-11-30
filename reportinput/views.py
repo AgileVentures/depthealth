@@ -160,7 +160,7 @@ def update12b(request, student_id):
     student = Student.objects.get(pk = student_id)
     p = Person.objects.get(pk = request.session['personpk'])
     if p.role_id == 1:
-        f = Facility.objects.get(pk = request.session['inputid'])
+        f = Facility.objects.get(pk = student.facility_id)
     else:
         f = Facility.objects.get(pk = p.facility_id)
     form = StudentForm12B(initial={
@@ -267,12 +267,12 @@ def update12b(request, student_id):
     return render(request,'reportinput/studentupdate12b.html', {'form':form,})
 
 def update12a(request, student_id):
+    student = Student.objects.get(pk = student_id)
     p = Person.objects.get(pk = request.session['personpk'])
     if p.role_id == 1:
-        f = Facility.objects.get(pk = request.session['inputid'])
+        f = Facility.objects.get(pk=student.facility_id)
     else:
         f = Facility.objects.get(pk = p.facility_id)
-    student = Student.objects.get(pk = student_id)
     form = StudentForm12A(initial={
         'fname':student.fname,
         'mname':student.mname,
@@ -300,11 +300,6 @@ def update12a(request, student_id):
         'notes':student.notes})
     if request.method == 'POST':
         form = StudentForm12A(request.POST)
-        if 'Drop' in request.POST:
-            s = Student(id = student.pk)
-            s.facility_id = None
-            s.save()
-            return HttpResponseRedirect(reverse('reportinput:complete'))
         if 'Delete' in request.POST:
             s = Student(id = student.pk)
             s.delete()
@@ -316,6 +311,7 @@ def update12a(request, student_id):
             s.lname = form.cleaned_data['lname']
             s.age = form.cleaned_data['age']
             s.entry_date = form.cleaned_data['entrydate']
+            s.dateofbirth = form.cleaned_data['dateofbirth']
             s.noshotrecord = form.cleaned_data['noshotrecord']
             s.exempt_rel = form.cleaned_data['exempt_rel']
             s.exempt_med = form.cleaned_data['exempt_med']
@@ -335,6 +331,10 @@ def update12a(request, student_id):
             s.pe = form.cleaned_data['pe']
             s.tb = form.cleaned_data['tb']
             s.notes = form.cleaned_data['notes']
+            if 'Drop' in request.POST:
+                s.facility_id = None
+                s.save()
+                return HttpResponseRedirect(reverse('reportinput:complete'))
             s.facility_id = f.pk
             s.save()
             if s.dtap1:

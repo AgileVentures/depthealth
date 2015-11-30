@@ -28,7 +28,8 @@
 	    </ul>
 	  </div>
 	</nav>
-
+    {% block header %}
+    {% endblock %}
     <nav class="collapse navbar-inverse navbar-collapse bs-navbar-collapse" role="navigation">
       <div class="container">
         {% csrf_token %}
@@ -36,12 +37,13 @@
           <ul class="nav navbar-nav">
           {% if request.session.role == 1 %}
             <li><a href="{% url 'register:facilitylist' %}">Manage Facility</a></li>
-            <li><a href="{% url 'register:userlist' %}">Manage User's</a></li>
             {% endif %}
               {% if request.session.role == 2 %}
                   <li><a href="{% url 'register:facilitylanding' request.session.fac %}">Manage Facility</a></li>
-                  <li><a href="{% url 'register:schooluser' %}">Manage User's</a></li>
               {% endif %}
+          {% if request.session.role == 1 or request.session.role == 2%}
+              <li><a href="{% url 'register:userlist' %}">Manage User's</a></li>
+          {% endif %}
             {% if request.session.hasprek == 1 and request.session.role != 1 %}
              <li><a href="{% url 'reportinput:landing12a' %}">Create EPI12A</a></li>
             {% endif %}
@@ -54,6 +56,7 @@
             {% csrf_token %}
               <li><a href="{% url 'support:open' %}">Support Request</a></li>
             <li><a href="{% url 'reportviewing:studentfilter' %}">Student List</a> </li>
+          <li><a href="{% url 'login:landingpage' %}">Home</a> </li>
         </ul>
       </div>
     </nav>

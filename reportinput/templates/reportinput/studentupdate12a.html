@@ -90,7 +90,7 @@
         {% if request.session.role == 1 %}
     <td><button class="btn btn-primary" type="submit" name="Delete">Delete Student</button></td>
         {% endif %}
-        {% if request.session.role == 1 or request.session == 2 %}
+        {% if request.session.role == 1 or request.session.role == 2 %}
     <td><button class="btn btn-primary" type="submit" name="Drop">Remove Student from School</button></td>
         {% endif %}
     <td><button class="btn btn-primary" type="submit" name="Submit">Make Changes</button></td>

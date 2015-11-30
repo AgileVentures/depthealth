@@ -30,6 +30,7 @@ def loginscreen(request):
                         request.session['hasprek'] = f.has_pre_k
                         request.session['onlyprk'] = f.is_only_pre_k
                     request.session['lname'] = 'all'
+                    request.session['ulname'] = 'all'
                     if person.verified:
                         return render(request,'login/landingpage.html', {'p':person})
             except u.DoesNotExist:
@@ -41,8 +42,8 @@ def loginscreen(request):
 
 @login_required
 def landingpage(request):
-
-    return render(request,'login/landingpage.html')
+    p = Person.objects.get(pk = request.session['personpk'])
+    return render(request,'login/landingpage.html', {'p':p,})
 
 def resetpassword(request):
     form = ResetPassword()

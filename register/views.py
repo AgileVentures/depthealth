@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import CreateFacility, CreateUser, Username, ModifyUser, FacilityFilter
 from .models import  Facility, District, Role, User, Person, Enrollment, Island
 from django.contrib.auth.models import User as uauth
-from django.views.generic.list import ListView
 from django.db.models import Q
+from reportviewing.views import StudentFilter
 import operator
 
 # Create your views here.
@@ -42,7 +42,7 @@ def facility(request):
 def facilitylist(request):
     form = FacilityFilter()
     if request.session['schoolfilter'] == 'all':
-        object_list = Facility.objects.all()
+        object_list = Facility.objects.exclude(pk=1)
     else:
         object_list = Facility.objects.filter(name__icontains=request.session['schoolfilter'])
     if request.session['district'] != 'all':
@@ -227,9 +227,9 @@ def modifyuser(request, person_id):
                 p.save()
                 p.title = form.cleaned_data['title']
                 p.save()
-                p.role_id = form.cleaned_data['role']
-                p.save()
                 if request.session['role'] == 1:
+                    p.role_id = form.cleaned_data['role']
+                    p.save()
                     p.verified = form.cleaned_data['verify']
                     p.save()
                     p.facility_id = form.cleaned_data['facility']
@@ -249,18 +249,27 @@ def modifyuser(request, person_id):
         form = ModifyUser(initial={'fname':person.fname, 'mname':person.mname, 'lname':person.lname, 'phone':person.phone, 'fax':person.fax, 'title':person.title, 'user':user.username,'password':user.password, 'facility':person.facility, 'role':person.role, 'verify':person.verified})
     return render(request, 'register/modify_user.html', {'form':form,})
 
-class UserList(ListView):
-    model = Person
-    queryset = Person.objects.order_by('-facility').order_by('-verified')
-    template_name = 'register/person_list.html'
+def userfilter(request):
+    form = StudentFilter()
+    person = Person.objects.get(pk = request.session['personpk'])
+    if person.role_id == 1:
+        object_list = Person.objects.all().order_by('facility').order_by('verified')
+    else:
+        object_list = Person.objects.filter(facility_id=person.facility_id)
 
-    def get_context_data(self, **kwargs):
-        context = super(UserList, self).get_context_data(**kwargs)
-        return context
+    if request.session['ulname'] != 'all':
+        if person.role_id == 1:
+            object_list = Person.objects.filter(lname__icontains=request.session['ulname'])
+        else:
+            object_list = Person.objects.filter(facility_id = person.facility_id).filter(lname__icontains=request.session['ulname'])
 
-class SchoolUserList(ListView):
-    model = Person
-    template_name = 'register/person_list.html'
+    if request.method=='POST':
+        form = StudentFilter(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['lname'] is None:
+                request.session['ulname'] = 'all'
+            else:
+                request.session['ulname'] = form.cleaned_data['lname']
+        return HttpResponseRedirect(reverse('register:userlist'))
+    return render(request, 'register/person_list.html', {'object_list':object_list,'form':form,})
 
-    def get_queryset(self):
-        return Person.objects.filter(facility_id = self.request.session['fac'])

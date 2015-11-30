@@ -69,8 +69,8 @@ class StudentForm12B(forms.Form):
 
 class SchoolInfo(forms.Form):
     kinder_enroll = forms.IntegerField(required=False)
-    lowest_grade = forms.ModelChoiceField(Enrollment.objects.all())
-    highest_grade = forms.ModelChoiceField(Enrollment.objects.all())
+    lowest_grade = forms.ModelChoiceField(Enrollment.objects.exclude(pk=1))
+    highest_grade = forms.ModelChoiceField(Enrollment.objects.exclude(pk=1))
     other_enroll = forms.IntegerField()
     students_to_input = forms.IntegerField()
 
@@ -79,6 +79,6 @@ class SchoolInfo(forms.Form):
 
 
 class PreKInfo(forms.Form):
-    under19 = forms.IntegerField()
-    over19 = forms.IntegerField()
-    students = forms.IntegerField()
+    under19 = forms.IntegerField(label= 'Children Under 19 Months')
+    over19 = forms.IntegerField(label= 'Children 19 Months and Older')
+    students = forms.IntegerField(label= 'Number of Students to Input')

@@ -5,7 +5,7 @@
 	<legend class="login">Create EPI12B</legend>
         <form action="" method="post">
         {% csrf_token %}
-            {% if f.lowest_grade_id < 2 %}
+            {% if f.lowest_grade_id == 2 %}
             <div class="form-group">
                 <label>Kindergarten Enrollment:</label>
                 {{ form.kinder_enroll }}
@@ -19,10 +19,17 @@
                 <label>Highest Grade</label>
                 {{ form.highest_grade }}
             </div>
+            {% if f.lowest_grade_id == 2 %}
             <div class="form-group">
                 <label>Total Enrollment Excluding K:</label>
                 {{ form.other_enroll }}
             </div>
+            {% else %}
+                <div class="form-group">
+                <label>Total Enrollment:</label>
+                {{ form.other_enroll }}
+            </div>
+            {% endif %}
             <div class="form-group">
                 <label>Amount of Students to Input:</label>
                 {{ form.students_to_input }}

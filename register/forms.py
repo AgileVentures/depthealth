@@ -27,7 +27,7 @@ class CreateUser(forms.Form):
     phone = forms.IntegerField(max_value=9999999999)
     fax = forms.IntegerField(max_value=9999999999, required=False)
     title = forms.CharField(max_length=50, required=False)
-    facility = forms.ModelChoiceField(Facility.objects.all())
+    facility = forms.ModelChoiceField(Facility.objects.exclude(pk = 1))
     role = forms.ModelChoiceField(Role.objects.exclude(id = 1))
     class Meta:
         model = Person
@@ -46,7 +46,7 @@ class ModifyUser(forms.Form):
     verify = forms.BooleanField(required=False)
 
 class Username(forms.Form):
-    user = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class' : 'form-control p60'}))
+    user = forms.EmailField(max_length=255, widget=forms.TextInput(attrs={'class' : 'form-control p60'}))
     password1 = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={'class' : 'form-control p60'}))
     password2 = forms.CharField(max_length=20, widget=forms.PasswordInput(attrs={'class' : 'form-control p60'}))
     class Meta:
