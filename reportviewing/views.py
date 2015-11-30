@@ -24,12 +24,13 @@ def reportsbydate(request):
 def schoolreport(request, report_id):
     r = Report.objects.get(pk = report_id)
     s = Student.objects.filter(report_id=r.pk)
-    filterobject = s[0]
-    if request.method == 'POST':
-        if filterobject.enrollment_id == 1:
-            return HttpResponseRedirect(reverse('reportviewing:csva', args=(r.pk,)))
-        else:
-            return HttpResponseRedirect(reverse('reportviewing:csvb', args=(r.pk,)))
+    if s:
+        filterobject = s[0]
+        if request.method == 'POST':
+            if filterobject.enrollment_id == 1:
+                return HttpResponseRedirect(reverse('reportviewing:csva', args=(r.pk,)))
+            else:
+                return HttpResponseRedirect(reverse('reportviewing:csvb', args=(r.pk,)))
     return render(request, 'reportviewing/schoolreport.html', {'students':s,})
 
 @login_required

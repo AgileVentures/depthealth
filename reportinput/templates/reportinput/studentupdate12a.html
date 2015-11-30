@@ -1,5 +1,8 @@
 {% extends 'login/base.html' %}
 {% block content %}
+    {% if f.id == 1 %}
+    <h2>Student doesn't belong to a Facility</h2>
+    {% endif %}
 <form action="" method="post">
 {% csrf_token %}
     <table>

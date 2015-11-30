@@ -2,6 +2,9 @@
 
 {% block content %}
     <h1 style="text-align: center">EPI12B</h1>
+    {% if f.id == 1 %}
+    <h2>Student doesn't belong to a Facility</h2>
+    {% endif %}
     <form action="" method="post">
     {% csrf_token %}
 

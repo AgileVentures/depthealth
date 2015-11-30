@@ -1,7 +1,8 @@
 {% extends 'login/base.html' %}
 {% block content %}
 <h3>School Reports</h3>
-    <form action="" method="post">
+    {% if students %}
+        <form action="" method="post">
     {% csrf_token %}
     <ul>
         {% for student in students %}
@@ -22,5 +23,8 @@
         <br />
     <input type="submit" value="Create CSV" class="btn btn-info">
     </form>
+    {% else %}
+        <p>No Students In This Report</p>
+    {% endif %}
     <a href="{% url 'login:landingpage' %}">Return to Main Screen</a>
 {% endblock %}

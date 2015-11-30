@@ -169,7 +169,10 @@ def update12b(request, student_id):
     student = Student.objects.get(pk = student_id)
     p = Person.objects.get(pk = request.session['personpk'])
     if p.role_id == 1:
-        f = Facility.objects.get(pk = student.facility_id)
+        if student.facility_id is None:
+            f = Facility.objects.get(pk = p.facility_id)
+        else:
+            f = Facility.objects.get(pk = student.facility_id)
     else:
         f = Facility.objects.get(pk = p.facility_id)
     form = StudentForm12B(initial={
@@ -273,13 +276,16 @@ def update12b(request, student_id):
                 s.varicella2 = s.varicella1
                 s.save()
             return HttpResponseRedirect(reverse('reportinput:complete'))
-    return render(request,'reportinput/studentupdate12b.html', {'form':form,})
+    return render(request,'reportinput/studentupdate12b.html', {'form':form,'f':f})
 
 def update12a(request, student_id):
     student = Student.objects.get(pk = student_id)
     p = Person.objects.get(pk = request.session['personpk'])
     if p.role_id == 1:
-        f = Facility.objects.get(pk=student.facility_id)
+        if student.facility_id is None:
+            f = Facility.objects.get(pk = p.facility_id)
+        else:
+            f = Facility.objects.get(pk=student.facility_id)
     else:
         f = Facility.objects.get(pk = p.facility_id)
     form = StudentForm12A(initial={
@@ -368,7 +374,7 @@ def update12a(request, student_id):
                 s.hepb3 = s.hepb2
                 s.save()
             return HttpResponseRedirect(reverse('reportinput:complete'))
-    return render(request,'reportinput/studentupdate12a.html', {'form':form, 's':student})
+    return render(request,'reportinput/studentupdate12a.html', {'form':form, 's':student, 'f':f})
 
 
 @login_required

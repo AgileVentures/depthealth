@@ -78,12 +78,13 @@ def username(request):
     if request.method == 'POST':
         form = Username(request.POST)
         if form.is_valid():
-            password1 = form.cleaned_data['password1']
-            password2 = form.cleaned_data['password2']
-            if password1 == password2:
-                u = User(username=form.cleaned_data['user'], password=password2)
-                u.save()
-                request.session['user'] = u.pk
+            if User.objects.get(pk = form.cleaned_data['user']) is None:
+                password1 = form.cleaned_data['password1']
+                password2 = form.cleaned_data['password2']
+                if password1 == password2:
+                    u = User(username=form.cleaned_data['user'], password=password2)
+                    u.save()
+                    request.session['user'] = u.pk
                 return HttpResponseRedirect(reverse('register:createuser'))
     else:
         form = Username()
