@@ -11,7 +11,7 @@ class StudentForm12A(forms.Form):
     mname = forms.CharField(max_length=50, required=False)
     lname = forms.CharField(max_length=50)
     dateofbirth = forms.DateField(widget=SelectDateWidget(years=range(day.year-20,day.year+1),empty_label=("Year","Month","Day"),),)
-    age = forms.IntegerField()
+    age = forms.IntegerField(required=False)
     entrydate = forms.DateField(widget=SelectDateWidget(empty_label=("Year","Month","Day"),),)
     noshotrecord = forms.BooleanField(required=False)
     exempt_rel = forms.BooleanField(required=False)

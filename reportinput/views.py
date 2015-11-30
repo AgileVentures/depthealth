@@ -9,6 +9,15 @@ from .forms import StudentForm12A, StudentForm12B, SchoolInfo, PreKInfo
 import datetime
 # Create your views here.
 
+#calculate age
+def calc_age(born):
+    today = datetime.date.today()
+    age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+    if age > 0:
+        return age
+    else:
+        return 1
+
 @login_required
 def epi12a(request):
     formset = formset_factory(StudentForm12A, extra=request.session['students'])
@@ -32,7 +41,7 @@ def epi12a(request):
                 s.mname = form.cleaned_data['mname']
                 s.lname = form.cleaned_data['lname']
                 s.dateofbirth = form.cleaned_data['dateofbirth']
-                s.age = form.cleaned_data['age']
+                s.age = calc_age(form.cleaned_data['dateofbirth'])
                 s.entry_date = form.cleaned_data['entrydate']
                 s.noshotrecord = form.cleaned_data['noshotrecord']
                 s.exempt_rel = form.cleaned_data['exempt_rel']
@@ -309,7 +318,7 @@ def update12a(request, student_id):
             s.fname = form.cleaned_data['fname']
             s.mname = form.cleaned_data['mname']
             s.lname = form.cleaned_data['lname']
-            s.age = form.cleaned_data['age']
+            s.age = calc_age(form.cleaned_data['dateofbirth'])
             s.entry_date = form.cleaned_data['entrydate']
             s.dateofbirth = form.cleaned_data['dateofbirth']
             s.noshotrecord = form.cleaned_data['noshotrecord']
@@ -359,7 +368,7 @@ def update12a(request, student_id):
                 s.hepb3 = s.hepb2
                 s.save()
             return HttpResponseRedirect(reverse('reportinput:complete'))
-    return render(request,'reportinput/studentupdate12a.html', {'form':form,})
+    return render(request,'reportinput/studentupdate12a.html', {'form':form, 's':student})
 
 
 @login_required
