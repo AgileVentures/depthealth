@@ -21,8 +21,10 @@
 	  <div class="navbar-collapse collapse">
 	    <img src="{% static "login/header.gif" %}" alt="Header" />
 	    <ul class="nav navbar-nav navbar-right">
-	      <li><a href="{% url 'faq:category' %}">FAQ</a></li>
-	      <li><a href="{% url 'login:logout' %}">Logout</a></li>
+            <li><a href="{% url 'reportviewing:epi12apdf' %}">EPI12A PDF</a></li>
+            <li><a href="{% url 'reportviewing:epi12bpdf' %}">EPI12B PDF</a></li>
+	        <li><a href="{% url 'faq:category' %}">FAQ</a></li>
+	        <li><a href="{% url 'login:logout' %}">Logout</a></li>
 	    </ul>
 	  </div>
 	</nav>
@@ -41,20 +43,16 @@
                   <li><a href="{% url 'register:schooluser' %}">Manage User's</a></li>
               {% endif %}
             {% if request.session.hasprek == 1 and request.session.role != 1 %}
-            <li><a href="{% url 'reportinput:landing12a' %}">Create EPI12A</a></li>
+             <li><a href="{% url 'reportinput:landing12a' %}">Create EPI12A</a></li>
             {% endif %}
             {% if request.session.onlyprk == 0 and request.session.role != 1 %}
-            <li><a href="{% url 'reportinput:landing12b' %}">Create EPI12B</a></li>
+                <li><a href="{% url 'reportinput:landing12b' %}">Create EPI12B</a></li>
             {% endif %}
             {% if request.session.role != 1 %}
-            <li><a href="{% url 'reportviewing:date' %}">View Reports</a></li>
+                <li><a href="{% url 'reportviewing:date' %}">View Reports</a></li>
             {% endif %}
-            {% if request.session.role != 1 %}
-            <li><a href="{% url 'support:create' %}">Support Request</a></li>
-            {% else %}
-            <li><a href="{% url 'support:open' %}">Support Request</a></li>
-            {% endif %}
-              {% csrf_token %}
+            {% csrf_token %}
+              <li><a href="{% url 'support:open' %}">Support Request</a></li>
             <li><a href="{% url 'reportviewing:studentfilter' %}">Student List</a> </li>
         </ul>
       </div>

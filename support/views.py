@@ -14,7 +14,7 @@ def createrequest(request):
             desc = form.cleaned_data['description']
             sr = Supportrequest(person_id=request.session['personpk'],status_id=1,description=desc, opendate=datetime.datetime.today())
             sr.save()
-            return render(request, 'support/opentickets.html')
+            return HttpResponseRedirect(reverse('support:open'))
     else:
         form = Request()
     return render(request, 'support/createsupport.html', {'form':form,})
@@ -23,7 +23,18 @@ def viewrequests(request):
     p = Person.objects.get(pk=request.session['personpk'])
     if p.facility_id == 1:
         tickets = Supportrequest.objects.exclude(status_id=3)
-        return render(request,'support/opentickets.html', {'tickets':tickets,})
     else:
         tickets = Supportrequest.objects.filter(person_id=p.pk)
-        return render(request,'support/opentickets.html',{'tickets':tickets})
+    return render(request,'support/opentickets.html',{'tickets':tickets})
+
+def updatesupport(request, r_id):
+    sr = Supportrequest.objects.get(pk = r_id)
+    sr.status_id = 2
+    sr.save()
+    return HttpResponseRedirect(reverse('support:open'))
+
+def closesupport(request, r_id):
+    sr = Supportrequest.objects.get(pk = r_id)
+    sr.status_id = 3
+    sr.save()
+    return HttpResponseRedirect(reverse('support:open'))

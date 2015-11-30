@@ -7,7 +7,7 @@
             <td>School Name: {{ form.name }}</td>
             <td>District: {{ form.district }}</td>
             <td>Island: {{ form.island }}</td>
-            <td><input type="submit" value="submit" name="Filter" class="btn btn-primary"></td>
+            <td><input type="submit" value="Filter" name="submit" class="btn btn-primary"></td>
         </tr>
         </table>
     </form>
@@ -35,5 +35,7 @@
     {% if request.session.role == 1 %}
     |
     <a href="{% url 'reportviewing:master12b' %}">Generate Master Grade School Report</a>
+    |
+    <a href="{% url 'reportviewing:master12a' %}">Generate Master Pre K Report</a>
     {% endif %}
 {% endblock %}

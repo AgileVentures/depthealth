@@ -9,6 +9,9 @@ class Status(models.Model):
     class Meta:
         db_table = 'status'
 
+    def __str__(self):
+        return self.statustype
+
 class Supportrequest(models.Model):
     id = models.AutoField(primary_key=True)
     person = models.ForeignKey(p.Person)

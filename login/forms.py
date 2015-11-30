@@ -11,9 +11,9 @@ class Login(forms.Form):
 
 class ResetPassword(forms.Form):
     username = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
-    old_password = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
-    new_password1 = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
-    new_password2 = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class' : 'form-control p30'}))
+    old_password = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={'class' : 'form-control p30'}))
+    new_password1 = forms.CharField(label="New Password", max_length=50, widget=forms.PasswordInput(attrs={'class' : 'form-control p30'}))
+    new_password2 = forms.CharField(label="Confirm New Password", max_length=50, widget=forms.PasswordInput(attrs={'class' : 'form-control p30'}))
 
     class Meta:
         model = User

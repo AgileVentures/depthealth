@@ -122,7 +122,10 @@ def facilitylanding(request, facility_id):
 
     f = Facility.objects.get(pk=facility_id)
     d = District.objects.get(pk=f.district_id)
-    p = Person.objects.filter(facility_id=f.pk).get(role_id=2)
+    try:
+        p = Person.objects.filter(facility_id=f.pk).get(role_id=2)
+    except Person.DoesNotExist:
+        p = None
 
     if request.method == 'POST':
         request.session['inputid'] = f.pk

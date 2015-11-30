@@ -15,7 +15,10 @@ def epi12a(request):
     if request.method =='POST':
         formset = formset(request.POST, request.FILES)
         p = Person.objects.get(pk = request.session['personpk'])
-        f = Facility.objects.get(pk = p.facility_id)
+        if p.role_id == 1:
+            f = Facility.objects.get(pk = request.session['inputid'])
+        else:
+            f = Facility.objects.get(pk = p.facility_id)
         count = f.count - request.session['students']
         r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
         r.save()
