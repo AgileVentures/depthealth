@@ -6,10 +6,19 @@ from register.models import Facility, Person, Enrollment, Island, District
 from reportinput.models import Student, Report
 from django.db.models import Q
 from django import forms
+from itertools import chain
 import datetime
 import csv
 # Create your views here.
 
+
+def masterdetailview(request):
+    f1 = Facility.objects.filter(pk = 1)
+    f2 = Facility.objects.exclude(pk = 1).order_by('name')
+    f = list(chain(f1,f2))
+    s = Student.objects.all()
+    p = Person.objects.all()
+    return render(request, 'reportviewing/masterdetailview.html', {'facility':f, 'person':p, 'student':s})
 
 @login_required
 def reportsbydate(request):

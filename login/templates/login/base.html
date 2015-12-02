@@ -56,6 +56,9 @@
             {% csrf_token %}
               <li><a href="{% url 'support:open' %}">Support Request</a></li>
             <li><a href="{% url 'reportviewing:studentfilter' %}">Student List</a> </li>
+          {% if request.session.role == 1 %}
+              <li><a href="{% url 'reportviewing:master' %}">Master Detail View</a></li>
+          {% endif %}
           <li><a href="{% url 'login:landingpage' %}">Home</a> </li>
         </ul>
       </div>

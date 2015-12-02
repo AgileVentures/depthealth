@@ -167,6 +167,7 @@ def epi12b(request):
 
 def update12b(request, student_id):
     student = Student.objects.get(pk = student_id)
+    rep = student.report_id
     p = Person.objects.get(pk = request.session['personpk'])
     if p.role_id == 1:
         if student.facility_id is None:
@@ -212,6 +213,7 @@ def update12b(request, student_id):
         if form.is_valid():
             grade = Enrollment.objects.get(name= form.cleaned_data['grade'])
             s = Student(id = student.id)
+            s.report_id = rep
             s.fname = form.cleaned_data['fname']
             s.mname = form.cleaned_data['mname']
             s.lname = form.cleaned_data['lname']
@@ -234,7 +236,9 @@ def update12b(request, student_id):
             s.hepb2 = form.cleaned_data['hepb2']
             s.hepb3 = form.cleaned_data['hepb3']
             s.mmr1 = form.cleaned_data['mmr1']
+            s.mmr2 = form.cleaned_data['mmr2']
             s.varicella1 = form.cleaned_data['varicella1']
+            s.varicella2 = form.cleaned_data['varicella2']
             s.pe = form.cleaned_data['pe']
             s.tb = form.cleaned_data['tb']
             s.notes = form.cleaned_data['notes']
@@ -280,6 +284,7 @@ def update12b(request, student_id):
 
 def update12a(request, student_id):
     student = Student.objects.get(pk = student_id)
+    rep = student.report_id
     p = Person.objects.get(pk = request.session['personpk'])
     if p.role_id == 1:
         if student.facility_id is None:
@@ -321,6 +326,7 @@ def update12a(request, student_id):
             return HttpResponseRedirect(reverse('reportinput:complete'))
         if form.is_valid():
             s = Student(id = student.id)
+            s.report_id = rep
             s.fname = form.cleaned_data['fname']
             s.mname = form.cleaned_data['mname']
             s.lname = form.cleaned_data['lname']
