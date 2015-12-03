@@ -19,22 +19,24 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Name</th>
+            <th style="text-align: center">Name</th>
             {% if request.session.role == 1 %}
-            <th>Facility</th>
+            <th style="text-align: center">Facility</th>
             {% endif %}
+            <th style="text-align: center">Notes</th>
         </tr>
         </thead>
         {% for student in students %}
         <tr>
             {% if student.enrollment_id > 1 %}
-                    <td><a href="{% url 'reportinput:update12b'  student.id%}">{{ student }}</a></td>
+                    <td style="text-align: center"><a href="{% url 'reportinput:update12b'  student.id%}">{{ student }}</a></td>
             {% elif student.enrollment_id == 1 %}
-                    <td><a href="{% url 'reportinput:update12a' student.id %}">{{ student }}</a></td>
+                    <td style="text-align: center"><a href="{% url 'reportinput:update12a' student.id %}">{{ student }}</a></td>
             {% endif %}
             {% if request.session.role == 1 %}
-            <td>{{ student.facility }}</td>
+            <td style="text-align: center">{{ student.facility }}</td>
             {% endif %}
+            <td style="text-align: center">{{ student.notes }}</td>
         </tr>
     {% endfor %}
     </table>

@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8fb4f885-fec0-4bd5-a990-3cc57317a1e5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reportviewing/templates/reportviewing/import.html" afterPath="$PROJECT_DIR$/reportviewing/templates/reportviewing/import.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reportviewing/urls.py" afterPath="$PROJECT_DIR$/reportviewing/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reportviewing/views.py" afterPath="$PROJECT_DIR$/reportviewing/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reportviewing/templates/reportviewing/studentlist.html" afterPath="$PROJECT_DIR$/reportviewing/templates/reportviewing/studentlist.html" />
     </list>
     <ignored path="depthealth.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,24 +40,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/reportviewing/views.py">
+      <file leaf-file-name="studentlist.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/reportviewing/templates/reportviewing/studentlist.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.81096196">
-              <caret line="415" column="12" selection-start-line="415" selection-start-column="12" selection-end-line="415" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.9055944">
+              <caret line="38" column="67" selection-start-line="38" selection-start-column="67" selection-end-line="38" selection-end-column="67" />
               <folding>
-                <element signature="e#528#816#0" expanded="false" />
-                <element signature="e#1281#2143#0" expanded="false" />
-                <element signature="e#2207#4590#0" expanded="false" />
-                <element signature="e#4654#7331#0" expanded="false" />
-                <element signature="e#7387#9634#0" expanded="false" />
-                <element signature="e#9690#12182#0" expanded="false" />
-                <element signature="e#12233#12995#0" expanded="false" />
-                <element signature="e#13045#14388#0" expanded="false" />
-                <element signature="e#14434#14687#0" expanded="false" />
-                <element signature="e#14733#14986#0" expanded="false" />
-                <element signature="e#15026#15124#0" expanded="false" />
-                <element signature="e#16240#16675#0" expanded="false" />
+                <element signature="e#782#808#0#HTML" expanded="true" />
+                <element signature="e#882#908#0#HTML" expanded="true" />
+                <element signature="e#963#989#0#HTML" expanded="true" />
+                <element signature="e#1154#1180#0#HTML" expanded="true" />
+                <element signature="e#1333#1359#0#HTML" expanded="true" />
+                <element signature="e#1525#1551#0#HTML" expanded="true" />
+                <element signature="e#1620#1646#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -120,7 +113,6 @@
         <option value="$PROJECT_DIR$/reportviewing/templates/reportviewing/masterdetailview.html" />
         <option value="$PROJECT_DIR$/register/forms.py" />
         <option value="$PROJECT_DIR$/register/templates/register/modify_user.html" />
-        <option value="$PROJECT_DIR$/reportviewing/templates/reportviewing/studentlist.html" />
         <option value="$PROJECT_DIR$/reportinput/templates/reportinput/studentupdate12a.html" />
         <option value="$PROJECT_DIR$/reportinput/templates/reportinput/studentupdate12b.html" />
         <option value="$PROJECT_DIR$/register/templates/register/facilitylanding.html" />
@@ -132,6 +124,7 @@
         <option value="$PROJECT_DIR$/reportviewing/urls.py" />
         <option value="$PROJECT_DIR$/reportviewing/templates/reportviewing/import.html" />
         <option value="$PROJECT_DIR$/reportviewing/views.py" />
+        <option value="$PROJECT_DIR$/reportviewing/templates/reportviewing/studentlist.html" />
       </list>
     </option>
   </component>
@@ -200,6 +193,42 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="support" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="depthealth" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="depthealth" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reportviewing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="depthealth" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="depthealth" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reportviewing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reportviewing" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -923,14 +952,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reportviewing/templates/reportviewing/studentlist.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4090909">
-          <caret line="11" column="108" selection-start-line="11" selection-start-column="108" selection-end-line="11" selection-end-column="108" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/login/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -984,6 +1005,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/reportviewing/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29753914">
+          <caret line="398" column="43" selection-start-line="398" selection-start-column="43" selection-end-line="398" selection-end-column="43" />
+          <folding>
+            <element signature="e#528#816#0" expanded="false" />
+            <element signature="e#1281#2143#0" expanded="false" />
+            <element signature="e#2207#4590#0" expanded="false" />
+            <element signature="e#4654#7331#0" expanded="false" />
+            <element signature="e#7387#9634#0" expanded="false" />
+            <element signature="e#9690#12182#0" expanded="false" />
+            <element signature="e#12233#12995#0" expanded="false" />
+            <element signature="e#13045#14388#0" expanded="false" />
+            <element signature="e#14434#14687#0" expanded="false" />
+            <element signature="e#14733#14986#0" expanded="false" />
+            <element signature="e#15026#15124#0" expanded="false" />
+            <element signature="e#16240#16675#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/reportinput/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -998,23 +1040,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reportviewing/views.py">
+    <entry file="file://$PROJECT_DIR$/reportviewing/templates/reportviewing/studentlist.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.81096196">
-          <caret line="415" column="12" selection-start-line="415" selection-start-column="12" selection-end-line="415" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.9055944">
+          <caret line="38" column="67" selection-start-line="38" selection-start-column="67" selection-end-line="38" selection-end-column="67" />
           <folding>
-            <element signature="e#528#816#0" expanded="false" />
-            <element signature="e#1281#2143#0" expanded="false" />
-            <element signature="e#2207#4590#0" expanded="false" />
-            <element signature="e#4654#7331#0" expanded="false" />
-            <element signature="e#7387#9634#0" expanded="false" />
-            <element signature="e#9690#12182#0" expanded="false" />
-            <element signature="e#12233#12995#0" expanded="false" />
-            <element signature="e#13045#14388#0" expanded="false" />
-            <element signature="e#14434#14687#0" expanded="false" />
-            <element signature="e#14733#14986#0" expanded="false" />
-            <element signature="e#15026#15124#0" expanded="false" />
-            <element signature="e#16240#16675#0" expanded="false" />
+            <element signature="e#782#808#0#HTML" expanded="true" />
+            <element signature="e#882#908#0#HTML" expanded="true" />
+            <element signature="e#963#989#0#HTML" expanded="true" />
+            <element signature="e#1154#1180#0#HTML" expanded="true" />
+            <element signature="e#1333#1359#0#HTML" expanded="true" />
+            <element signature="e#1525#1551#0#HTML" expanded="true" />
+            <element signature="e#1620#1646#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
