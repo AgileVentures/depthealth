@@ -39,6 +39,7 @@ def facility(request):
         form = CreateFacility()
     return render(request,'register/facilityinput.html',{'form':form,})
 
+@login_required
 def facilitylist(request):
     form = FacilityFilter()
     if request.session['schoolfilter'] == 'all':
@@ -119,6 +120,7 @@ def createuser(request):
         form = CreateUser()
     return render(request, 'register/createuser.html', {'form':form,})
 
+@login_required
 def facilitylanding(request, facility_id):
 
     f = Facility.objects.get(pk=facility_id)
@@ -152,7 +154,7 @@ def facilitylanding(request, facility_id):
     else:
         return render(request, 'register/facilitylanding.html',{'f':f,'d':d,'p':p})
 
-
+@login_required
 def modifyfacility(request, facility_id):
     facility = Facility.objects.get(pk = facility_id)
     district = District.objects.get(pk = facility.district_id)
@@ -196,7 +198,7 @@ def modifyfacility(request, facility_id):
         form = CreateFacility(initial={'name':facility.name,'street':facility.street,'zip':facility.zip, 'city':facility.city, 'has_pre_k':facility.has_pre_k,'is_only_pre_k':facility.is_only_pre_k,'phone':facility.phone, 'fax':facility.fax, 'email':facility.email, 'island':district.island, 'district':facility.district, 'lowest_grade':facility.lowest_grade, 'highest_grade':facility.highest_grade})
     return render(request, 'register/modifyfac.html', {'form':form,})
 
-
+@login_required
 def modifyuser(request, person_id):
     person = Person.objects.get(pk = person_id)
     user = User.objects.get(pk = person.email_id)
@@ -250,6 +252,7 @@ def modifyuser(request, person_id):
         form = ModifyUser(initial={'fname':person.fname, 'mname':person.mname, 'lname':person.lname, 'phone':person.phone, 'fax':person.fax, 'title':person.title, 'user':user.username,'password':user.password, 'facility':person.facility, 'role':person.role, 'verify':person.verified})
     return render(request, 'register/modify_user.html', {'form':form,})
 
+@login_required
 def userfilter(request):
     form = StudentFilter()
     person = Person.objects.get(pk = request.session['personpk'])

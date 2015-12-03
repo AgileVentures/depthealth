@@ -11,7 +11,7 @@ import datetime
 import csv
 # Create your views here.
 
-
+@login_required
 def masterdetailview(request):
     f1 = Facility.objects.filter(pk = 1)
     f2 = Facility.objects.exclude(pk = 1).order_by('name')
@@ -121,6 +121,7 @@ def createschoolcsva(request, report_id):
 
     return response
 
+@login_required
 def createschoolcsvb(request, report_id):
     r = Report.objects.get(pk = report_id)
     students = Student.objects.filter(report_id=r.pk)
@@ -196,6 +197,7 @@ def createschoolcsvb(request, report_id):
                          student.notes])
     return response
 
+@login_required
 def createmasterlist12a(request):
     students = Student.objects.filter(enrollment_id = 1).order_by('facility')
 
@@ -259,6 +261,7 @@ def createmasterlist12a(request):
                          student.notes])
     return response
 
+@login_required
 def createmasterlist12b(request):
     students = Student.objects.exclude(enrollment_id = 1).order_by('facility')
 
@@ -328,7 +331,7 @@ def createmasterlist12b(request):
                          student.notes])
     return response
 
-
+@login_required
 def listofstudents(request):
     f = Facility.objects.get(pk = request.session['inputid'])
     type = request.session['type']
@@ -343,6 +346,7 @@ def listofstudents(request):
         s = Student.objects.exclude(uptodate = True).filter(facility_id = f.pk)
     return render(request, 'reportviewing/students.html',{'s':s, 'n':type,'f':f})
 
+@login_required
 def studentfilter(request):
     form = StudentFilter()
     person = Person.objects.get(pk = request.session['personpk'])
@@ -360,8 +364,6 @@ def studentfilter(request):
     if request.method=='POST':
         if 'remove' in request.POST:
             return HttpResponseRedirect(reverse('reportviewing:removehighest'))
-        elif 'import' in request.POST:
-            return 1
         form = StudentFilter(request.POST)
         if form.is_valid():
             if form.cleaned_data['lname'] is None:
@@ -371,6 +373,7 @@ def studentfilter(request):
         return HttpResponseRedirect(reverse('reportviewing:studentfilter'))
     return render(request, 'reportviewing/studentlist.html', {'students':students,'form':form,})
 
+@login_required
 def epi12apdf(request):
     file = open('static/login/EPI12A.pdf', 'rb')
     content = file.read()
@@ -379,6 +382,7 @@ def epi12apdf(request):
     response['Content-Disposition'] = 'attachment; filename = "epi12a.pdf"'
     return response
 
+@login_required
 def epi12bpdf(request):
     file = open('static/login/EPI12B.pdf', 'rb')
     content = file.read()
@@ -386,10 +390,13 @@ def epi12bpdf(request):
     response = HttpResponse(content, content_type ='application/pdf')
     response['Content-Disposition'] = 'attachment; filename = "epi12b.pdf"'
     return response
+
+@login_required
 class StudentFilter(forms.Form):
 
     lname = forms.CharField(max_length=50, required=False)
 
+@login_required
 def removehighestgrade(request):
     person = Person.objects.get(pk = request.session['personpk'])
     facility = Facility.objects.get(pk = person.facility_id)

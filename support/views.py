@@ -4,9 +4,10 @@ from django.core.urlresolvers import reverse
 from .forms import Request
 from .models import Supportrequest
 from register.models import Person
+from django.contrib.auth.decorators import login_required
 import datetime
 # Create your views here.
-
+@login_required
 def createrequest(request):
     if request.method == 'POST':
         form = Request(request.POST)
@@ -19,6 +20,7 @@ def createrequest(request):
         form = Request()
     return render(request, 'support/createsupport.html', {'form':form,})
 
+@login_required
 def viewrequests(request):
     p = Person.objects.get(pk=request.session['personpk'])
     if p.facility_id == 1:
@@ -27,12 +29,14 @@ def viewrequests(request):
         tickets = Supportrequest.objects.filter(person_id=p.pk)
     return render(request,'support/opentickets.html',{'tickets':tickets})
 
+@login_required
 def updatesupport(request, r_id):
     sr = Supportrequest.objects.get(pk = r_id)
     sr.status_id = 2
     sr.save()
     return HttpResponseRedirect(reverse('support:open'))
 
+@login_required
 def closesupport(request, r_id):
     sr = Supportrequest.objects.get(pk = r_id)
     sr.status_id = 3

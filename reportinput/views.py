@@ -188,6 +188,7 @@ def epi12b(request):
         formset = formset()
     return render(request, 'reportinput/epi12b.html',{'formset':formset,})
 
+@login_required
 def update12b(request, student_id):
     student = Student.objects.get(pk = student_id)
     rep = student.report_id
@@ -305,6 +306,7 @@ def update12b(request, student_id):
             return HttpResponseRedirect(reverse('reportinput:complete'))
     return render(request,'reportinput/studentupdate12b.html', {'form':form,'f':f})
 
+@login_required
 def update12a(request, student_id):
     student = Student.objects.get(pk = student_id)
     rep = student.report_id
