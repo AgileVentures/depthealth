@@ -73,6 +73,7 @@ class Facility(models.Model):
     total_enrolled = models.IntegerField(default=0, null=True, blank=True)
     allimmune = models.BooleanField(default=0)
     count = models.IntegerField(default=0)
+    compliant = models.BooleanField(default=0)
 
     class Meta:
         db_table = 'facility'

@@ -19,6 +19,7 @@
         <th>Zip</th>
         <th>Phone</th>
         <th>Total Enrollment</th>
+        <th>Compliant</th>
     </tr>
     {% for facility in object_list %}
         <tr>
@@ -28,6 +29,11 @@
             <td>{{ facility.zip }}</td>
             <td>{{ facility.phone }}</td>
             <td>{{ facility.total_enrolled }}</td>
+            <td>
+                {% if facility.compliant %}
+                <span class="glyphicon glyphicon-ok"></span>
+                {% endif %}
+            </td>
         </tr>
     {% endfor %}
     </table>

@@ -13,5 +13,6 @@ urlpatterns =[
     url(r'^students', views.listofstudents, name='students'),
     url(r'^studentfilter',views.studentfilter, name='studentfilter'),
     url(r'12apdf', views.epi12apdf, name='epi12apdf'),
-    url(r'12bpdf', views.epi12bpdf, name='epi12bpdf')
+    url(r'12bpdf', views.epi12bpdf, name='epi12bpdf'),
+    url(r'removehighest', views.removehighestgrade, name='removehighest')
 ]

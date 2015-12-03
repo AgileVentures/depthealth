@@ -42,9 +42,9 @@ def facility(request):
 def facilitylist(request):
     form = FacilityFilter()
     if request.session['schoolfilter'] == 'all':
-        object_list = Facility.objects.exclude(pk=1)
+        object_list = Facility.objects.exclude(pk=1).order_by('name')
     else:
-        object_list = Facility.objects.filter(name__icontains=request.session['schoolfilter'])
+        object_list = Facility.objects.filter(name__icontains=request.session['schoolfilter']).order_by('name')
     if request.session['district'] != 'all':
         d = District.objects.get(pk = request.session['district'])
         object_list = object_list.filter(district_id = d.pk)
@@ -78,18 +78,18 @@ def username(request):
     if request.method == 'POST':
         form = Username(request.POST)
         if form.is_valid():
-            if User.objects.get(pk = form.cleaned_data['user']) is None:
+            users = User.objects.filter(pk=form.cleaned_data['user'])
+            if not users:
                 password1 = form.cleaned_data['password1']
                 password2 = form.cleaned_data['password2']
-                if password1 == password2:
+                if password1 == password2 and passwordcheck(password1) != 1:
                     u = User(username=form.cleaned_data['user'], password=password2)
                     u.save()
                     request.session['user'] = u.pk
-                return HttpResponseRedirect(reverse('register:createuser'))
+                    return HttpResponseRedirect(reverse('register:createuser'))
     else:
         form = Username()
     return render(request, 'register/user.html',{'form':form,})
-
 
 
 def createuser(request):
@@ -274,3 +274,12 @@ def userfilter(request):
         return HttpResponseRedirect(reverse('register:userlist'))
     return render(request, 'register/person_list.html', {'object_list':object_list,'form':form,})
 
+def passwordcheck(password):
+    pw = password
+    caps = sum(1 for c in pw if c.isupper())
+    low = sum(1 for c in pw if c.islower())
+    num = sum(1 for c in pw if c.isnumeric())
+    if len(pw) >= 8 and len(pw) <= 20 and caps >= 1 and low >=1 and num >= 1:
+        return 0
+    else:
+        return 1

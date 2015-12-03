@@ -50,9 +50,10 @@ class Report(models.Model):
     person = models.ForeignKey(info.Person)
     facility = models.ForeignKey(info.Facility)
     entrydate = models.DateField(null=True, blank=True)
+    complete = models.BooleanField(default=0)
 
     class Meta:
         db_table = 'report'
 
     def __str__(self):
-        return str(self.entrydate)
+        return '{} id: {}'.format(str(self.entrydate), str(self.id))

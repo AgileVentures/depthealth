@@ -22,6 +22,9 @@
     </ul>
         <br />
     <input type="submit" value="Create CSV" class="btn btn-info">
+        {% if request.session.role == 2 %}
+    <input type="submit" value="Confirm" class="btn btn-info" name="confirm">
+            {% endif %}
     </form>
     {% else %}
         <p>No Students In This Report</p>

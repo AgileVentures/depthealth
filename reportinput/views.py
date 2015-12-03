@@ -29,8 +29,21 @@ def epi12a(request):
         else:
             f = Facility.objects.get(pk = p.facility_id)
         count = f.count - request.session['students']
-        r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
-        r.save()
+        if not f.compliant:
+            r = Report.objects.filter(facility_id=f.id).filter(complete=False)
+            if r is None:
+                r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
+                r.save()
+        else:
+            r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
+            r.save()
+            students = Student.objects.filter(facility_id = r.facility_id)
+            f.compliant = False
+            f.save()
+            if students:
+                for student in students:
+                    student.report_id = r.pk
+                    student.save()
         for form in formset:
             if form.is_valid():
                 id = f.district_id * 10000000000
@@ -95,8 +108,18 @@ def epi12b(request):
         else:
             f = Facility.objects.get(pk = p.facility_id)
         count = f.count - request.session['students']
-        r = Report(person_id=p.pk, facility_id=f.pk,entrydate=datetime.datetime.today())
-        r.save()
+        if not f.compliant:
+            r = Report.objects.filter(facility_id=f.id).get(complete=False)
+        else:
+            r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
+            r.save()
+            f.compliant = False
+            f.save()
+            students = Student.objects.filter(facility_id = r.facility_id)
+            if students:
+                for student in students:
+                    student.report_id = r.pk
+                    student.save()
         formset = formset(request.POST, request.FILES)
         for form in formset:
             if form.is_valid():

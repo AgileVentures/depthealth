@@ -5,9 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from .forms import Login, ResetPassword
 from register.models import User as u, Person, Facility
-import reportinput
+
 
 # Create your views here.
+
 def loginscreen(request):
     if request.method == 'POST':
         form = Login(request.POST)

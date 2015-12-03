@@ -2,6 +2,8 @@
 {% block content %}
     {% if f.id == 1 %}
     <h2>Student doesn't belong to a Facility</h2>
+    {% else %}
+        <h2 style="text-align: center">{{ f }}</h2>
     {% endif %}
 <form action="" method="post">
 {% csrf_token %}
@@ -93,9 +95,9 @@
         {% if request.session.role == 1 %}
     <td><button class="btn btn-primary" type="submit" name="Delete">Delete Student</button></td>
         {% endif %}
-        {% if request.session.role == 1 or request.session.role == 2 %}
+
     <td><button class="btn btn-primary" type="submit" name="Drop">Remove Student from School</button></td>
-        {% endif %}
+
     <td><button class="btn btn-primary" type="submit" name="Submit">Make Changes</button></td>
     </tr>
     </table>

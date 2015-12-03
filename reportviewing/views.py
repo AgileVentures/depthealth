@@ -33,13 +33,22 @@ def reportsbydate(request):
 def schoolreport(request, report_id):
     r = Report.objects.get(pk = report_id)
     s = Student.objects.filter(report_id=r.pk)
+    p = Person.objects.get(pk = request.session['personpk'])
+    f = Facility.objects.get(pk = p.facility_id)
     if s:
         filterobject = s[0]
         if request.method == 'POST':
-            if filterobject.enrollment_id == 1:
-                return HttpResponseRedirect(reverse('reportviewing:csva', args=(r.pk,)))
+            if 'confirm' in request.POST:
+                r.complete = True
+                r.save()
+                f.compliant = True
+                f.save()
+                return HttpResponseRedirect(reverse('login:landingpage'))
             else:
-                return HttpResponseRedirect(reverse('reportviewing:csvb', args=(r.pk,)))
+                if filterobject.enrollment_id == 1:
+                    return HttpResponseRedirect(reverse('reportviewing:csva', args=(r.pk,)))
+                else:
+                    return HttpResponseRedirect(reverse('reportviewing:csvb', args=(r.pk,)))
     return render(request, 'reportviewing/schoolreport.html', {'students':s,})
 
 @login_required
@@ -338,17 +347,21 @@ def studentfilter(request):
     form = StudentFilter()
     person = Person.objects.get(pk = request.session['personpk'])
     if person.role_id == 1:
-        students = Student.objects.all()
+        students = Student.objects.all().order_by('facility')
     else:
-        students = Student.objects.filter(facility_id=person.facility_id)
+        students = Student.objects.filter(facility_id=person.facility_id).order_by('lname')
 
     if request.session['lname'] != 'all':
         if person.role_id == 1:
-            students = Student.objects.filter(lname__icontains=request.session['lname'])
+            students = Student.objects.filter(lname__icontains=request.session['lname']).order_by('facility')
         else:
-            students = Student.objects.filter(facility_id = person.facility_id).filter(lname__icontains=request.session['lname'])
+            students = Student.objects.filter(facility_id = person.facility_id).filter(lname__icontains=request.session['lname']).order_by('facility').order_by('lname')
 
     if request.method=='POST':
+        if 'remove' in request.POST:
+            return HttpResponseRedirect(reverse('reportviewing:removehighest'))
+        elif 'import' in request.POST:
+            return 1
         form = StudentFilter(request.POST)
         if form.is_valid():
             if form.cleaned_data['lname'] is None:
@@ -376,3 +389,14 @@ def epi12bpdf(request):
 class StudentFilter(forms.Form):
 
     lname = forms.CharField(max_length=50, required=False)
+
+def removehighestgrade(request):
+    person = Person.objects.get(pk = request.session['personpk'])
+    facility = Facility.objects.get(pk = person.facility_id)
+    highestgrade = facility.highest_grade_id
+    students = Student.objects.filter(Q(facility_id=facility.pk) & Q(enrollment_id=highestgrade))
+    if students:
+        for s in students:
+            s.facility_id = None
+            s.save()
+    return HttpResponseRedirect(reverse('reportviewing:studentfilter'))

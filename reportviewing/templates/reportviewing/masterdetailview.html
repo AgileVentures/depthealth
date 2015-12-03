@@ -1,7 +1,7 @@
 {% extends 'login/base.html' %}
 {% block content %}
     {% for f in facility %}
-        <legend>Facility: {{ f.name }}</legend>
+        <legend style="text-align: center" ><a href="{% url 'register:facilitylanding' f.id %}">{{ f.name }}</a></legend>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -26,7 +26,7 @@
         </tr>
         </tbody>
     </table>
-
+    {% if f.id != 1 %}
     {% if f.is_only_pre_k != True %}
     <table class="table table-striped">
 
@@ -57,6 +57,7 @@
             </tr>
         </table>
     {% endif %}
+    {% endif %}
 
         <div class="col-xs-6">
         <legend style="text-align: center">User</legend>
@@ -71,7 +72,7 @@
             {% for p in person %}
                 {% if p.facility_id == f.id %}
                     <tr>
-                        <td style="text-align: center">{{ p }}</td>
+                        <td style="text-align: center"><a href="{% url 'register:modifyuser' p.id %}">{{ p }}</a></td>
                         <td style="text-align: center">{{ p.role }}</td>
                     </tr>
                 {% endif %}
@@ -93,7 +94,15 @@
             {% for s in student %}
                 {% if s.facility_id == f.id%}
                     <tr>
-                        <td style="text-align: center">{{ s }}</td>
+                        <td style="text-align: center">
+                            {% if s.enrollment_id == 1 %}
+                                <a href="{% url 'reportinput:update12a' s.id %}">
+                            {% else %}
+                                <a href="{% url 'reportinput:update12b' s.id %}">
+                            {% endif %}
+                            {{ s }}
+                            </a>
+                        </td>
                         <td style="text-align: center">{{ s.dateofbirth }}</td>
                     </tr>
                 {% endif %}
@@ -102,4 +111,54 @@
         </div>
         {% endif %}
     {% endfor %}
+    <legend style="text-align: center" >No Associated Facility</legend>
+     <div class="col-xs-6">
+        <legend style="text-align: center">User</legend>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="text-align: center">Name</th>
+                <th style="text-align: center">Position</th>
+            </tr>
+            </thead>
+            {% for p in person %}
+                {% if p.facility_id == None %}
+                    <tr>
+                        <td style="text-align: center"><a href="{% url 'register:modifyuser' p.id %}">{{ p }}</a></td>
+                        <td style="text-align: center">{{ p.role }}</td>
+                    </tr>
+                {% endif %}
+
+            {% endfor %}
+        </table>
+        </div>
+        <div class="col-xs-6">
+                <legend style="text-align: center">Student</legend>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="text-align: center">Name</th>
+                <th style="text-align: center">Date of Birth</th>
+            </tr>
+            </thead>
+            {% for s in student %}
+                {% if s.facility_id == None%}
+                    <tr>
+                        <td style="text-align: center">
+                            {% if s.enrollment_id == 1 %}
+                                <a href="{% url 'reportinput:update12a' s.id %}">
+                            {% else %}
+                                <a href="{% url 'reportinput:update12b' s.id %}">
+                            {% endif %}
+                            {{ s }}
+                            </a>
+                        </td>
+                        <td style="text-align: center">{{ s.dateofbirth }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        </div>
 {% endblock %}
