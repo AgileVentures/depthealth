@@ -18,10 +18,9 @@
         </tr>
 
         <tr>
-            <td>{{ s.id }}</td>
+            <td><a href="{% url 'reportviewing:importstudent' s.id %}"> {{ s.id }}</a></td>
             <td>{{ s }}</td>
             <td>{{ s.enrollment }}</td>
-            <td><button class="btn btn-primary" type="submit" name="import">Import</button></td>
         </tr>
 
         </table>

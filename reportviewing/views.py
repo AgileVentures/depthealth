@@ -365,6 +365,8 @@ def studentfilter(request):
         if 'remove' in request.POST:
             return HttpResponseRedirect(reverse('reportviewing:removehighest'))
         form = StudentFilter(request.POST)
+        if 'import' in request.POST:
+            return HttpResponseRedirect(reverse('reportviewing:importview'))
         if form.is_valid():
             if form.cleaned_data['lname'] is None:
                 request.session['lname'] = 'all'
@@ -391,10 +393,40 @@ def epi12bpdf(request):
     response['Content-Disposition'] = 'attachment; filename = "epi12b.pdf"'
     return response
 
-@login_required
 class StudentFilter(forms.Form):
 
     lname = forms.CharField(max_length=50, required=False)
+    id = forms.IntegerField(required=False)
+
+@login_required()
+def importstudent(request, student_id):
+    s = Student.objects.get(pk = student_id)
+    p = Person.objects.get(pk = request.session['personpk'])
+    s.facility_id = p.facility_id
+    s.save()
+    f = Facility.objects.get(pk = s.facility_id)
+    if not f.compliant:
+        r = Report.objects.filter(facility_id=f.id).get(complete=False)
+    else:
+        r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
+        r.save()
+        f.compliant = False
+        f.save()
+    s.report_id = r.pk
+    s.save()
+    return HttpResponseRedirect(reverse('reportviewing:studentfilter'))
+
+@login_required
+def importview(request):
+    s = None
+    form = StudentFilter()
+    if request.method == 'POST':
+        form = StudentFilter(request.POST)
+        if form.is_valid():
+            s = Student.objects.filter(Q(pk = form.cleaned_data['id']) & (Q(facility_id = 1) | Q(facility_id = None)))
+            if s:
+                s = s[0]
+    return render(request, 'reportviewing/import.html', {'s':s, 'form':form})
 
 @login_required
 def removehighestgrade(request):
