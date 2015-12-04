@@ -3,7 +3,7 @@ from django.conf.urls import patterns, include, url
 from . import views
 
 urlpatterns =[
-
+    url(r'^(?P<student_id>[0-9]+)/removefromreport', views.removefromreport, name='removefromreport'),
     url(r'reportsbydate',views.reportsbydate,name='date'),
     url(r'^(?P<report_id>[0-9]+)/$',views.schoolreport,name='schoolreport'),
     url(r'^(?P<report_id>[0-9]+)/csva', views.createschoolcsva, name='csva'),

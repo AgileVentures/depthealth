@@ -12,6 +12,17 @@ import datetime
 import csv
 # Create your views here.
 
+@login_required
+def removefromreport(request, student_id):
+    student = Student.objects.get(pk = student_id)
+    report = Report.objects.filter(student__id = student.pk).get(complete=False)
+    if request.method =='POST':
+        if 'confirm' in request.POST:
+            report.student_set.remove(student)
+            return HttpResponseRedirect(reverse('reportinput:complete'))
+        else:
+            return HttpResponseRedirect(reverse('reportviewing:reportbydate'))
+    return render(request, 'reportviewing/confirm.html')
 
 @login_required
 def reportsbydate(request):
@@ -42,7 +53,7 @@ def schoolreport(request, report_id):
                     return HttpResponseRedirect(reverse('reportviewing:csva', args=(r.pk,)))
                 else:
                     return HttpResponseRedirect(reverse('reportviewing:csvb', args=(r.pk,)))
-    return render(request, 'reportviewing/schoolreport.html', {'students':s,})
+    return render(request, 'reportviewing/schoolreport.html', {'students':s, 'report':r})
 
 @login_required
 def createschoolcsva(request, report_id):
