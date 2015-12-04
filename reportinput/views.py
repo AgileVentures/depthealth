@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.forms import formset_factory
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 from .models import Student, Report
 from register.models import Person, Facility, Enrollment
 from .forms import StudentForm12A, StudentForm12B, SchoolInfo, PreKInfo
@@ -31,7 +32,9 @@ def epi12a(request):
         count = f.count - request.session['students']
         if not f.compliant:
             r = Report.objects.filter(facility_id=f.id).filter(complete=False)
-            if r is None:
+            if r:
+                r = r[0]
+            else:
                 r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
                 r.save()
         else:
@@ -42,8 +45,7 @@ def epi12a(request):
             f.save()
             if students:
                 for student in students:
-                    student.report_id = r.pk
-                    student.save()
+                    student.report.add(r)
         for form in formset:
             if form.is_valid():
                 id = f.district_id * 10000000000
@@ -75,7 +77,6 @@ def epi12a(request):
                 s.pe = form.cleaned_data['pe']
                 s.tb = form.cleaned_data['tb']
                 s.notes = form.cleaned_data['notes']
-                s.report_id = r.pk
                 s.facility_id = f.pk
                 count += 1
                 if s.dtap1:
@@ -93,6 +94,7 @@ def epi12a(request):
                 if s.hepb2:
                     s.hepb3 = s.hepb2
                 s.save()
+                s.report.add(r)
         return HttpResponseRedirect(reverse('reportinput:complete'))
     else:
         formset = formset()
@@ -109,7 +111,12 @@ def epi12b(request):
             f = Facility.objects.get(pk = p.facility_id)
         count = f.count - request.session['students']
         if not f.compliant:
-            r = Report.objects.filter(facility_id=f.id).get(complete=False)
+            r = Report.objects.filter(facility_id=f.id).filter(complete=False)
+            if r:
+                r = r[0]
+            else:
+                r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
+                r.save()
         else:
             r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
             r.save()
@@ -118,8 +125,7 @@ def epi12b(request):
             students = Student.objects.filter(facility_id = r.facility_id)
             if students:
                 for student in students:
-                    student.report_id = r.pk
-                    student.save()
+                    student.report.add(r)
         formset = formset(request.POST, request.FILES)
         for form in formset:
             if form.is_valid():
@@ -156,7 +162,6 @@ def epi12b(request):
                 s.pe = form.cleaned_data['pe']
                 s.tb = form.cleaned_data['tb']
                 s.notes = form.cleaned_data['notes']
-                s.report_id = r.pk
                 s.facility_id = f.pk
                 count += 1
                 if s.dtap1:
@@ -182,6 +187,7 @@ def epi12b(request):
                 if s.varicella1:
                     s.varicella2 = s.varicella1
                 s.save()
+                s.report.add(r)
         return HttpResponseRedirect(reverse('reportinput:complete'))
 
     else:
@@ -191,7 +197,6 @@ def epi12b(request):
 @login_required
 def update12b(request, student_id):
     student = Student.objects.get(pk = student_id)
-    rep = student.report_id
     p = Person.objects.get(pk = request.session['personpk'])
     if p.role_id == 1:
         if student.facility_id is None:
@@ -200,6 +205,9 @@ def update12b(request, student_id):
             f = Facility.objects.get(pk = student.facility_id)
     else:
         f = Facility.objects.get(pk = p.facility_id)
+    rep = Report.objects.filter(facility_id = f.pk)
+    rep = rep.last()
+    f.compliant = False
     form = StudentForm12B(initial={
         'fname':student.fname,
         'mname':student.mname,
@@ -237,7 +245,6 @@ def update12b(request, student_id):
         if form.is_valid():
             grade = Enrollment.objects.get(name= form.cleaned_data['grade'])
             s = Student(id = student.id)
-            s.report_id = rep
             s.fname = form.cleaned_data['fname']
             s.mname = form.cleaned_data['mname']
             s.lname = form.cleaned_data['lname']
@@ -309,7 +316,6 @@ def update12b(request, student_id):
 @login_required
 def update12a(request, student_id):
     student = Student.objects.get(pk = student_id)
-    rep = student.report_id
     p = Person.objects.get(pk = request.session['personpk'])
     if p.role_id == 1:
         if student.facility_id is None:
@@ -318,6 +324,8 @@ def update12a(request, student_id):
             f = Facility.objects.get(pk=student.facility_id)
     else:
         f = Facility.objects.get(pk = p.facility_id)
+    rep = Report.objects.filter(facility_id = f.pk)
+    rep = rep.last()
     form = StudentForm12A(initial={
         'fname':student.fname,
         'mname':student.mname,
@@ -351,7 +359,6 @@ def update12a(request, student_id):
             return HttpResponseRedirect(reverse('reportinput:complete'))
         if form.is_valid():
             s = Student(id = student.id)
-            s.report_id = rep
             s.fname = form.cleaned_data['fname']
             s.mname = form.cleaned_data['mname']
             s.lname = form.cleaned_data['lname']

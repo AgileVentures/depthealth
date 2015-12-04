@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8fb4f885-fec0-4bd5-a990-3cc57317a1e5" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/reportviewing/templates/reportviewing/masterdetailview.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login/templates/login/base.html" afterPath="$PROJECT_DIR$/login/templates/login/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/register/templates/register/facility_list.html" afterPath="$PROJECT_DIR$/register/templates/register/facility_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/register/templates/register/person_list.html" afterPath="$PROJECT_DIR$/register/templates/register/person_list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/register/views.py" afterPath="$PROJECT_DIR$/register/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reportviewing/templates/reportviewing/studentlist.html" afterPath="$PROJECT_DIR$/reportviewing/templates/reportviewing/studentlist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reportviewing/urls.py" afterPath="$PROJECT_DIR$/reportviewing/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reportinput/models.py" afterPath="$PROJECT_DIR$/reportinput/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reportinput/views.py" afterPath="$PROJECT_DIR$/reportinput/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reportviewing/templates/reportviewing/schoolreport.html" afterPath="$PROJECT_DIR$/reportviewing/templates/reportviewing/schoolreport.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reportviewing/views.py" afterPath="$PROJECT_DIR$/reportviewing/views.py" />
     </list>
     <ignored path="depthealth.iws" />
@@ -32,75 +28,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/reportviewing/views.py">
+      <file leaf-file-name="schoolreport.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/reportviewing/templates/reportviewing/schoolreport.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5940594">
-              <caret line="368" column="37" selection-start-line="368" selection-start-column="37" selection-end-line="368" selection-end-column="37" />
-              <folding>
-                <element signature="e#0#54#0" expanded="true" />
-                <element signature="e#599#954#0" expanded="false" />
-                <element signature="e#1014#1876#0" expanded="false" />
-                <element signature="e#1940#4323#0" expanded="false" />
-                <element signature="e#4387#7064#0" expanded="false" />
-                <element signature="e#7120#9367#0" expanded="false" />
-                <element signature="e#9423#11915#0" expanded="false" />
-                <element signature="e#11966#12728#0" expanded="false" />
-                <element signature="e#14433#14686#0" expanded="false" />
-                <element signature="e#14732#14985#0" expanded="false" />
-                <element signature="e#15025#15123#0" expanded="false" />
-                <element signature="e#15187#15926#0" expanded="false" />
-                <element signature="e#15973#16352#0" expanded="false" />
-                <element signature="e#16407#16842#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/register/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="288" column="34" selection-start-line="287" selection-start-column="4" selection-end-line="288" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#54#0" expanded="true" />
-                <element signature="e#657#1962#0" expanded="false" />
-                <element signature="e#2011#3896#0" expanded="false" />
-                <element signature="e#3927#4657#0" expanded="false" />
-                <element signature="e#4689#5887#0" expanded="false" />
-                <element signature="e#5953#6925#0" expanded="false" />
-                <element signature="e#6989#9119#0" expanded="false" />
-                <element signature="e#9177#11575#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="studentlist.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reportviewing/templates/reportviewing/studentlist.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.75">
-              <caret line="47" column="30" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.34020618">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="facility_list.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/register/templates/register/facility_list.html">
+      <file leaf-file-name="students.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reportviewing/templates/reportviewing/students.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.75">
-              <caret line="56" column="23" selection-start-line="54" selection-start-column="12" selection-end-line="56" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="person_list.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/register/templates/register/person_list.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.5">
-              <caret line="31" column="109" selection-start-line="31" selection-start-column="109" selection-end-line="31" selection-end-column="109" />
+            <state vertical-scroll-proportion="-19.75">
+              <caret line="126" column="16" selection-start-line="13" selection-start-column="8" selection-end-line="126" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -152,8 +94,6 @@
         <option value="$PROJECT_DIR$/reportinput/forms.py" />
         <option value="$PROJECT_DIR$/register/templates/register/facilityinput.html" />
         <option value="$PROJECT_DIR$/register/models.py" />
-        <option value="$PROJECT_DIR$/reportviewing/templates/reportviewing/schoolreport.html" />
-        <option value="$PROJECT_DIR$/reportinput/models.py" />
         <option value="$PROJECT_DIR$/reportviewing/templates/reportviewing/reportsbydate.html" />
         <option value="$PROJECT_DIR$/reportviewing/templates/reportviewing/masterdetailview.html" />
         <option value="$PROJECT_DIR$/register/forms.py" />
@@ -163,7 +103,6 @@
         <option value="$PROJECT_DIR$/register/templates/register/facilitylanding.html" />
         <option value="$PROJECT_DIR$/login/views.py" />
         <option value="$PROJECT_DIR$/depthealth/settings.py" />
-        <option value="$PROJECT_DIR$/reportinput/views.py" />
         <option value="$PROJECT_DIR$/support/views.py" />
         <option value="$PROJECT_DIR$/reportviewing/templates/reportviewing/import.html" />
         <option value="$PROJECT_DIR$/register/templates/register/facility_list.html" />
@@ -172,7 +111,10 @@
         <option value="$PROJECT_DIR$/login/templates/login/base.html" />
         <option value="$PROJECT_DIR$/reportviewing/urls.py" />
         <option value="$PROJECT_DIR$/reportviewing/templates/reportviewing/studentlist.html" />
+        <option value="$PROJECT_DIR$/reportinput/models.py" />
         <option value="$PROJECT_DIR$/reportviewing/views.py" />
+        <option value="$PROJECT_DIR$/reportinput/views.py" />
+        <option value="$PROJECT_DIR$/reportviewing/templates/reportviewing/schoolreport.html" />
       </list>
     </option>
   </component>
@@ -278,57 +220,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="register" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="depthealth" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="depthealth" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="login" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="depthealth" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="depthealth" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="login" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="login" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="depthealth" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="depthealth" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="depthealth" />
+              <option name="myItemId" value="reportinput" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -617,7 +509,7 @@
     <frame x="1280" y="23" width="1644" height="1006" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12469587" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12469587" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -670,7 +562,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="13" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/reportinput/views.py</url>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="16" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -822,14 +720,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/register/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.5402684">
-          <caret line="75" column="46" selection-start-line="75" selection-start-column="46" selection-end-line="75" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reportviewing/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -837,28 +727,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reportviewing/templates/reportviewing/schoolreport.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7237762">
-          <caret line="23" column="65" selection-start-line="23" selection-start-column="65" selection-end-line="23" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reportinput/tests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reportinput/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30201343">
-          <caret line="52" column="45" selection-start-line="52" selection-start-column="45" selection-end-line="52" selection-end-column="45" />
-          <folding>
-            <element signature="e#166#1883#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -880,14 +752,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6853147">
           <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reportviewing/templates/reportviewing/students.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.8706293">
-          <caret line="123" column="21" selection-start-line="38" selection-start-column="16" selection-end-line="123" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -986,25 +850,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reportinput/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.040059347">
-          <caret line="101" column="20" selection-start-line="101" selection-start-column="20" selection-end-line="101" selection-end-column="20" />
-          <folding>
-            <element signature="e#472#650#0" expanded="false" />
-            <element signature="e#693#4196#0" expanded="false" />
-            <element signature="e#4239#8091#0" expanded="false" />
-            <element signature="e#8149#12555#0" expanded="false" />
-            <element signature="e#12613#16459#0" expanded="false" />
-            <element signature="e#16507#17727#0" expanded="false" />
-            <element signature="e#17774#19513#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/register/templates/register/person_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.5">
+        <state vertical-scroll-proportion="0.0">
           <caret line="31" column="109" selection-start-line="31" selection-start-column="109" selection-end-line="31" selection-end-column="109" />
           <folding />
         </state>
@@ -1023,7 +871,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#51#0" expanded="true" />
+            <element signature="e#0#51#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1038,7 +886,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/register/templates/register/facility_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.75">
+        <state vertical-scroll-proportion="0.0">
           <caret line="56" column="23" selection-start-line="54" selection-start-column="12" selection-end-line="56" selection-end-column="23" />
           <folding />
         </state>
@@ -1046,7 +894,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reportviewing/templates/reportviewing/studentlist.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.75">
+        <state vertical-scroll-proportion="0.0">
           <caret line="47" column="30" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
           <folding />
         </state>
@@ -1057,7 +905,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="288" column="34" selection-start-line="287" selection-start-column="4" selection-end-line="288" selection-end-column="34" />
           <folding>
-            <element signature="e#0#54#0" expanded="true" />
+            <element signature="e#0#54#0" expanded="false" />
             <element signature="e#657#1962#0" expanded="false" />
             <element signature="e#2011#3896#0" expanded="false" />
             <element signature="e#3927#4657#0" expanded="false" />
@@ -1069,26 +917,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/register/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9405941">
+          <caret line="75" column="46" selection-start-line="75" selection-start-column="46" selection-end-line="75" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reportinput/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33443344">
+          <caret line="364" column="6" selection-start-line="364" selection-start-column="6" selection-end-line="364" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#507#685#0" expanded="false" />
+            <element signature="e#728#4225#0" expanded="false" />
+            <element signature="e#4268#8274#0" expanded="false" />
+            <element signature="e#16744#17964#0" expanded="false" />
+            <element signature="e#18011#19750#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/reportviewing/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5940594">
-          <caret line="368" column="37" selection-start-line="368" selection-start-column="37" selection-end-line="368" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.9405941">
+          <caret line="385" column="19" selection-start-line="385" selection-start-column="19" selection-end-line="385" selection-end-column="19" />
           <folding>
             <element signature="e#0#54#0" expanded="true" />
             <element signature="e#599#954#0" expanded="false" />
-            <element signature="e#1014#1876#0" expanded="false" />
-            <element signature="e#1940#4323#0" expanded="false" />
-            <element signature="e#4387#7064#0" expanded="false" />
-            <element signature="e#7120#9367#0" expanded="false" />
-            <element signature="e#9423#11915#0" expanded="false" />
-            <element signature="e#11966#12728#0" expanded="false" />
-            <element signature="e#14433#14686#0" expanded="false" />
-            <element signature="e#14732#14985#0" expanded="false" />
-            <element signature="e#15025#15123#0" expanded="false" />
-            <element signature="e#15187#15926#0" expanded="false" />
-            <element signature="e#15973#16352#0" expanded="false" />
-            <element signature="e#16407#16842#0" expanded="false" />
+            <element signature="e#1014#1877#0" expanded="false" />
+            <element signature="e#1941#4325#0" expanded="false" />
+            <element signature="e#4389#7067#0" expanded="false" />
+            <element signature="e#7123#9370#0" expanded="false" />
+            <element signature="e#9426#11918#0" expanded="false" />
+            <element signature="e#11969#12731#0" expanded="false" />
+            <element signature="e#12781#14390#0" expanded="false" />
+            <element signature="e#14436#14689#0" expanded="false" />
+            <element signature="e#14735#14988#0" expanded="false" />
+            <element signature="e#15028#15126#0" expanded="false" />
+            <element signature="e#15190#15896#0" expanded="false" />
+            <element signature="e#15943#16322#0" expanded="false" />
+            <element signature="e#16377#16812#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reportinput/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14851485">
+          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reportviewing/templates/reportviewing/students.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-19.75">
+          <caret line="126" column="16" selection-start-line="13" selection-start-column="8" selection-end-line="126" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reportviewing/templates/reportviewing/schoolreport.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34020618">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
