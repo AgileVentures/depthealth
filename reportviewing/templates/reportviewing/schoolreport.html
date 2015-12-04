@@ -6,19 +6,22 @@
     {% csrf_token %}
     <table class="table table-striped">
         <tr>
-            <th>Name</th>
-            <th>Exemptions</th>
-            <th>Missing Vaccines</th>
+            <th style="text-align: center">Name</th>
+            <th style="text-align: center">Exemptions</th>
+            <th style="text-align: center">Missing Vaccines</th>
+            {% if not report.complete %}
+                <th style="text-align: center">Remove Student From Report</th>
+            {% endif %}
         </tr>
         {% for student in students %}
             <tr>
                 {% if student.enrollment_id > 1 %}
-                    <td><a href="{% url 'reportinput:update12b'  student.id%}">{{ student }}</a></td>
+                    <td style="text-align: center"><a href="{% url 'reportinput:update12b'  student.id%}">{{ student }}</a></td>
                 {% elif student.enrollment_id == 1 %}
-                    <td><a href="{% url 'reportinput:update12a' student.id %}">{{ student }}</a></td>
+                    <td style="text-align: center"><a href="{% url 'reportinput:update12a' student.id %}">{{ student }}</a></td>
                 {% endif %}
 
-                <td>
+                <td style="text-align: center">
                     {% if student.exempt_med and student.exempt_rel %}
                         Medical and Religious
                     {% elif student.exempt_med %}
@@ -29,7 +32,7 @@
                         None
                     {% endif %}
                 </td>
-                <td>
+                <td style="text-align: center">
                     {% if student.enrollment_id > 1 %}
                         {% if student.dtap1 %}
                             DTaP/DTP/DT/Td 1-5
@@ -115,17 +118,19 @@
                         {% endif %}
                     {% endif %}
                 </td>
+                {% if not report.complete %}
+                    <td style="text-align: center"><a href="{% url 'reportviewing:removefromreport' student.id %}">Remove</a></td>
+                {% endif %}
             </tr>
         {% endfor %}
         </table>
         <br />
     <input type="submit" value="Create CSV" class="btn btn-info">
-        {% if request.session.role == 2 %}
+        {% if request.session.role == 2 and not report.complete %}
     <input type="submit" value="Confirm" class="btn btn-info" name="confirm">
             {% endif %}
     </form>
     {% else %}
         <p>No Students In This Report</p>
     {% endif %}
-    <a href="{% url 'login:landingpage' %}">Return to Main Screen</a>
 {% endblock %}

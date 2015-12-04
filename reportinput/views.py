@@ -310,6 +310,9 @@ def update12b(request, student_id):
             if s.varicella1:
                 s.varicella2 = s.varicella1
                 s.save()
+            s.save()
+            rep.save()
+            rep.student_set.add(s)
             return HttpResponseRedirect(reverse('reportinput:complete'))
     return render(request,'reportinput/studentupdate12b.html', {'form':form,'f':f})
 
@@ -411,6 +414,9 @@ def update12a(request, student_id):
             if s.hepb2:
                 s.hepb3 = s.hepb2
                 s.save()
+            s.save()
+            rep.save()
+            rep.student_set.add(s)
             return HttpResponseRedirect(reverse('reportinput:complete'))
     return render(request,'reportinput/studentupdate12a.html', {'form':form, 's':student, 'f':f})
 
