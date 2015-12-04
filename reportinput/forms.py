@@ -72,6 +72,7 @@ class SchoolInfo(forms.Form):
     lowest_grade = forms.ModelChoiceField(Enrollment.objects.exclude(pk=1))
     highest_grade = forms.ModelChoiceField(Enrollment.objects.exclude(pk=1))
     other_enroll = forms.IntegerField()
+    seventh_grade_enroll = forms.IntegerField(required=False)
     students_to_input = forms.IntegerField()
 
     class Meta:

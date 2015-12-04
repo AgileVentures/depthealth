@@ -34,11 +34,23 @@
         <tr>
             <th>Lowest Grade</th>
             <th>Highest Grade</th>
+            {% if f.lowest_grade_id == 2 %}
+                <th>Kindergarten Enrollment</th>
+            {% endif %}
+            {% if f.lowest_grade_id <= 9 and f.highest_grade_id >= 9  %}
+                <th>7th Grade Enrollment</th>
+                {% endif %}
             <th>Total Enrollment</th>
         </tr>
         <tr>
             <td>{{ f.lowest_grade }}</td>
             <td>{{ f.highest_grade }}</td>
+            {% if f.lowest_grade_id == 2 %}
+                <td>{{ f.kinder_enroll }}</td>
+            {% endif %}
+            {% if f.lowest_grade_id <= 9 and f.highest_grade_id >= 9  %}
+                <td>{{ f.seventh_grade_enroll }}</td>
+                {% endif %}
             <td>{{ f.total_enrolled }}</td>
         </tr>
     </table>

@@ -311,8 +311,9 @@ def update12b(request, student_id):
                 s.varicella2 = s.varicella1
                 s.save()
             s.save()
-            rep.save()
-            rep.student_set.add(s)
+            if rep is not None:
+                rep.save()
+                rep.student_set.add(s)
             return HttpResponseRedirect(reverse('reportinput:complete'))
     return render(request,'reportinput/studentupdate12b.html', {'form':form,'f':f})
 
@@ -466,6 +467,8 @@ def landing12b(request):
             highest_grade = Enrollment.objects.get(name = form.cleaned_data['highest_grade'])
             other_enroll = form.cleaned_data['other_enroll']
             students = form.cleaned_data['students_to_input']
+            seventh_grade_enroll = form.cleaned_data['seventh_grade_enroll']
+            f.seventh_grade_enroll = seventh_grade_enroll
             f.lowest_grade_id = lowest_grade.pk
             f.highest_grade_id = highest_grade.pk
             f.other_enroll = other_enroll
@@ -485,7 +488,7 @@ def landing12b(request):
                 request.session['students'] = students
                 return HttpResponseRedirect(reverse('reportinput:epi12b'))
     else:
-        form = SchoolInfo(initial={'lowest_grade':f.lowest_grade,'highest_grade':f.highest_grade, 'kinder_enroll':f.kinder_enroll, 'other_enroll':f.other_enroll})
+        form = SchoolInfo(initial={'lowest_grade':f.lowest_grade,'highest_grade':f.highest_grade, 'kinder_enroll':f.kinder_enroll, 'other_enroll':f.other_enroll, 'seventh_grade_enroll':f.seventh_grade_enroll})
     return  render(request,'reportinput/landing12b.html',{'form':form, 'f':f,})
 
 @login_required

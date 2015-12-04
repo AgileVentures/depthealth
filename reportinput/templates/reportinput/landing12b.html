@@ -19,6 +19,12 @@
                 <label>Highest Grade</label>
                 {{ form.highest_grade }}
             </div>
+            {% if f.lowest_grade_id <= 9 and f.highest_grade_id >= 9 %}
+                <div class="form_group">
+                <label>7th Grade Enrollment</label>
+                    {{ form.seventh_grade_enroll }}
+                </div>
+        {% endif %}
             {% if f.lowest_grade_id == 2 %}
             <div class="form-group">
                 <label>Total Enrollment Excluding K:</label>
