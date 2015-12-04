@@ -9,7 +9,6 @@ class Student(models.Model):
     mname = models.CharField(max_length=50,null=True, blank=True)
     lname = models.CharField(max_length=50)
     dateofbirth = models.DateField()
-    report = models.ForeignKey('Report', null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
     entry_date = models.DateField()
     enrollment = models.ForeignKey(info.Enrollment, default=1)
@@ -36,8 +35,9 @@ class Student(models.Model):
     varicella2 = models.BooleanField(default=0)
     pe = models.BooleanField(default=0)
     tb = models.BooleanField(default=0)
-    facility = models.ForeignKey(info.Facility, null=True)
     uptodate = models.BooleanField(default=0)
+    facility = models.ForeignKey(info.Facility, null=True)
+    report = models.ManyToManyField('Report')
 
     class Meta:
         db_table = 'student'

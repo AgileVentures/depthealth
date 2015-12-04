@@ -25,7 +25,7 @@ def reportsbydate(request):
 @login_required
 def schoolreport(request, report_id):
     r = Report.objects.get(pk = report_id)
-    s = Student.objects.filter(report_id=r.pk)
+    s = Student.objects.filter(report__id=r.pk)
     p = Person.objects.get(pk = request.session['personpk'])
     f = Facility.objects.get(pk = p.facility_id)
     if s:
@@ -47,7 +47,7 @@ def schoolreport(request, report_id):
 @login_required
 def createschoolcsva(request, report_id):
     r = Report.objects.get(pk = report_id)
-    students = Student.objects.filter(report_id=r.pk)
+    students = Student.objects.filter(report__id=r.pk)
     f = Facility.objects.get(pk = r.facility_id)
 
     response = HttpResponse(content_type='text/csv')
@@ -117,7 +117,7 @@ def createschoolcsva(request, report_id):
 @login_required
 def createschoolcsvb(request, report_id):
     r = Report.objects.get(pk = report_id)
-    students = Student.objects.filter(report_id=r.pk)
+    students = Student.objects.filter(report__id=r.pk)
     f = Facility.objects.get(pk = r.facility_id)
 
     students = students.exclude(enrollment_id = 1)
@@ -415,9 +415,8 @@ def importstudent(request, student_id):
         f.save()
         students = Student.objects.filter(facility_id = s.facility_id)
         for student in students:
-            student.report_id = r.pk
-            student.save()
-    s.report_id = r.pk
+            student.report.add(r)
+    s.report.add(r)
     s.save()
     return HttpResponseRedirect(reverse('reportviewing:studentfilter'))
 
