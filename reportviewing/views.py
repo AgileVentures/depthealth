@@ -373,6 +373,7 @@ def studentfilter(request):
             else:
                 request.session['lname'] = form.cleaned_data['lname']
         return HttpResponseRedirect(reverse('reportviewing:studentfilter'))
+
     return render(request, 'reportviewing/studentlist.html', {'students':students,'form':form,})
 
 @login_required

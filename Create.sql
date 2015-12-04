@@ -127,7 +127,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$20000$f6zbK8Nf9fjZ$oGnFixSat+83ujM90C2UrE0xn7gFFmT7cWhMKrWdSwQ=','2015-12-03 02:57:28.607601',0,'thomas.e.wassum@gmail.com','Thomas','Wassum','',0,1,'2015-11-29 10:25:51.779458'),(11,'pbkdf2_sha256$20000$LojkdpP4sMwi$AKZNo4106EUY/7eATFev3kyFx10bMnZXI2tvQ5n/tLQ=','2015-12-03 09:02:14.738086',0,'testprin@test.com','Test','Principal','',0,1,'2015-12-01 03:57:11.554992'),(12,'pbkdf2_sha256$20000$U7WxTq1yXed2$nlB5abxB3gyKDGBmyhevSm/Ualc7qJVs1QspVxt3erM=',NULL,0,'aiea.admin@test.com','Aiea','Admin','',0,1,'2015-12-02 00:00:28.275934'),(13,'pbkdf2_sha256$20000$NHyp7GEmnUn3$/SvMJOJG1l4iEPjn7vlDWZm9w8q+5scVsmf4luNpXOA=',NULL,0,'aiea.user@test.com','Aiea','User','',0,1,'2015-12-02 00:00:58.160354'),(14,'pbkdf2_sha256$20000$kfma5dzZkO8U$Ui/PQKcXZwq3uGWUCe4cbzU+Voq1gobAoLUUzlLUbgQ=','2015-12-03 02:39:05.646857',0,'leilehua.admin@test.com','Leilehua','Mules','',0,1,'2015-12-02 00:04:15.784835'),(15,'pbkdf2_sha256$20000$QdcQOXCmiEuc$3HeVYA2MInZq34XGtuR/n8O5R+4fvavlhUZ49is9hSU=',NULL,0,'testpw@test.com','This','Work','',0,1,'2015-12-03 02:29:02.981693');
+INSERT INTO `auth_user` VALUES (11,'pbkdf2_sha256$20000$LojkdpP4sMwi$AKZNo4106EUY/7eATFev3kyFx10bMnZXI2tvQ5n/tLQ=','2015-12-03 09:02:14.738086',0,'testprin@test.com','Test','Principal','',0,1,'2015-12-01 03:57:11.554992'),(12,'pbkdf2_sha256$20000$U7WxTq1yXed2$nlB5abxB3gyKDGBmyhevSm/Ualc7qJVs1QspVxt3erM=',NULL,0,'aiea.admin@test.com','Aiea','Admin','',0,1,'2015-12-02 00:00:28.275934'),(13,'pbkdf2_sha256$20000$NHyp7GEmnUn3$/SvMJOJG1l4iEPjn7vlDWZm9w8q+5scVsmf4luNpXOA=',NULL,0,'aiea.user@test.com','Aiea','User','',0,1,'2015-12-02 00:00:58.160354'),(14,'pbkdf2_sha256$20000$kfma5dzZkO8U$Ui/PQKcXZwq3uGWUCe4cbzU+Voq1gobAoLUUzlLUbgQ=','2015-12-03 02:39:05.646857',0,'leilehua.admin@test.com','Leilehua','Mules','',0,1,'2015-12-02 00:04:15.784835'),(15,'pbkdf2_sha256$20000$QdcQOXCmiEuc$3HeVYA2MInZq34XGtuR/n8O5R+4fvavlhUZ49is9hSU=',NULL,0,'testpw@test.com','This','Work','',0,1,'2015-12-03 02:29:02.981693');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -509,7 +509,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` VALUES (1,'Thomas','Edward','Wassum',8087546834,NULL,'Superman','thomas.e.wassum@gmail.com',1,1,1),(11,'Test','','Principal',8081231234,NULL,'','testprin@test.com',4,2,1),(12,'Aiea','','Admin',1231231234,NULL,'','aiea.admin@test.com',2,2,1),(13,'Aiea','','User',1231231234,NULL,'','aiea.user@test.com',2,3,1),(14,'Leilehua','Mighty','Mules',8086226550,NULL,'','leilehua.admin@test.com',4,3,1),(15,'This','Did','Work',1231234123,NULL,'PW Checked out','testpw@test.com',127,3,1);
+INSERT INTO `person` VALUES (11,'Test','','Principal',8081231234,NULL,'','testprin@test.com',4,2,1),(12,'Aiea','','Admin',1231231234,NULL,'','aiea.admin@test.com',2,2,1),(13,'Aiea','','User',1231231234,NULL,'','aiea.user@test.com',2,3,1),(14,'Leilehua','Mighty','Mules',8086226550,NULL,'','leilehua.admin@test.com',4,3,1),(15,'This','Did','Work',1231234123,NULL,'PW Checked out','testpw@test.com',127,3,1);
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -706,7 +706,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('aiea.admin@test.com','password'),('aiea.user@test.com','password'),('leilehua.admin@test.com','password'),('testprin@test.com','AIden$$1026'),('testpw@test.com','PAss1234'),('thomas.e.wassum@gmail.com','AIden$$1026');
+INSERT INTO `user` VALUES ('aiea.admin@test.com','password'),('aiea.user@test.com','password'),('leilehua.admin@test.com','password'),('testprin@test.com','AIden$$1026'),('testpw@test.com','PAss1234');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
