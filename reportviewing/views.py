@@ -413,6 +413,10 @@ def importstudent(request, student_id):
         r.save()
         f.compliant = False
         f.save()
+        students = Student.objects.filter(facility_id = s.facility_id)
+        for student in students:
+            student.report_id = r.pk
+            student.save()
     s.report_id = r.pk
     s.save()
     return HttpResponseRedirect(reverse('reportviewing:studentfilter'))
