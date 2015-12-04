@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CreateFacility, CreateUser, Username, ModifyUser, FacilityFilter
 from .models import  Facility, District, Role, User, Person, Enrollment, Island
 from django.contrib.auth.models import User as uauth
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from reportviewing.views import StudentFilter
 import operator
@@ -71,7 +72,16 @@ form.cleaned_data['island']).pk
             else:
                 request.session['district'] = District.objects.get(name= form.cleaned_data['district']).pk
             return HttpResponseRedirect(reverse('register:facilitylist'))
-    return render(request,'register/facility_list.html',{'form':form, 'object_list':object_list})
+    paginator = Paginator(object_list, 10)
+    page = request.GET.get('page')
+    try:
+        fac = paginator.page(page)
+    except PageNotAnInteger:
+        fac = paginator.page(1)
+    except EmptyPage:
+        fac = paginator.page(paginator.num_pages)
+
+    return render(request,'register/facility_list.html',{'form':form, 'object_list':fac})
 
 
 
@@ -275,7 +285,15 @@ def userfilter(request):
             else:
                 request.session['ulname'] = form.cleaned_data['lname']
         return HttpResponseRedirect(reverse('register:userlist'))
-    return render(request, 'register/person_list.html', {'object_list':object_list,'form':form,})
+    paginator = Paginator(object_list, 10)
+    page = request.GET.get('page')
+    try:
+        staff = paginator.page(page)
+    except PageNotAnInteger:
+        staff = paginator.page(1)
+    except EmptyPage:
+        staff = paginator.page(paginator.num_pages)
+    return render(request, 'register/person_list.html', {'object_list':staff,'form':form,})
 
 def passwordcheck(password):
     pw = password

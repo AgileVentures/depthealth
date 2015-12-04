@@ -40,6 +40,14 @@
         </tr>
     {% endfor %}
     </table>
+    <ul class="pager">
+
+            {% if students.has_previous %}
+                <li class="previous"><a href="?page={{ students.previous_page_number }}">Previous</a></li>
+            {% endif %}
+    {% if students.has_next %}
+               <li class="next"> <a href="?page={{ students.next_page_number }}">Next</a></li>
+            {% endif %}
             {% else %}
         <h3>No students found</h3>
     {% endif %}
