@@ -9,9 +9,7 @@ Ensure that you have the following installed on your machine:
 
 This project is open source. The most recent version can be found at 
 
-https://github.com/djdkc86/depthealth.git
-
-This project is also now open source, so check often on new functionality.
+https://github.com/agileventures/depthealth.git
 
 If you are not familiar with git and github follow these instructions:
 
@@ -29,10 +27,14 @@ Ensure you have the MySQL server running, which is set on port 3306 in this proj
 
 From the parent directory, write the following commands in command prompt or terminal:
 
+Before performing magic with Django, you have to create your database.
+
+The name of this database is 'depthealth'.
+
+You may name it whatever you with, just be sure to update the settings.py file with the credentials you would like to use.
+
 python manage.py makemigrations
 python manage.py migrate
-
-Once the db is created, you’ll have to seed some data into it. Refer to seed.sql for seed info.
 
 Next, run:
 
@@ -40,6 +42,9 @@ python manage.py runserver
 
 If all goes well, you should have a local instance running.
 
+If you did not run the seed or dump sql files:
 The very first time you run this program, you are going to have to create a user. When you create that user, you’ll have to update the person table through MySQL. Change the person facility_id to 1, role_id to 1 and verified to 1.
+
+I highly recommend creating your own user, then following the instructions above to become the superuser per se for this application.
 
 From there, have fun :)
