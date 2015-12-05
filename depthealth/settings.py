@@ -87,8 +87,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'depthealth',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST':'127.0.0.1',
+        'PASSWORD': 'poi#da808',
+        'HOST':'depthealth.crej2gygwftp.us-west-2.rds.amazonaws.com',
         'PORT':'3306'
     }
 }
