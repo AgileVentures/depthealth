@@ -68,6 +68,7 @@ class Facility(models.Model):
     total_prek = models.IntegerField(default=0,null=True, blank=True)
     lowest_grade = models.ForeignKey('Enrollment', related_name='lowest', null=True, blank=True)
     highest_grade = models.ForeignKey('Enrollment',related_name='highest',null=True, blank=True)
+    seventh_grade_enroll = models.IntegerField(default=0, null=True, blank=True)
     kinder_enroll = models.IntegerField(default=0 ,null=True,blank=True)
     other_enroll = models.IntegerField(default=0, null=True, blank=True)
     total_enrolled = models.IntegerField(default=0, null=True, blank=True)

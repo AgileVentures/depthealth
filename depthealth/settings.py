@@ -26,9 +26,9 @@ SECRET_KEY = '6ff!g$gdnyok31)-$46ty96f3)z5o=qz(hqgvkbkju2o)=ygb$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -87,8 +87,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'depthealth',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST':'127.0.0.1',
+        'PASSWORD': 'poi#da808',
+        'HOST':'depthealth.crej2gygwftp.us-west-2.rds.amazonaws.com',
         'PORT':'3306'
     }
 }

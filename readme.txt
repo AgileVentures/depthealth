@@ -3,7 +3,6 @@ Instructions:
 Ensure that you have the following installed on your machine:
 
 1. Git (https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-2. MySQL (http://dev.mysql.com/doc/refman/5.7/en/installing.html)
 3. Python 2.7 (https://www.python.org/downloads/)
 4. Django (version 1.8.5) (https://docs.djangoproject.com/en/1.8/topics/install/)
 
@@ -23,18 +22,10 @@ If you are not familiar with git and github follow these instructions:
 To run the program locally, go into the parent directory (depthealth) and ensure
 you have a python cli environment installed properly.
 
-Ensure you have the MySQL server running, which is set on port 3306 in this project.
-
 From the parent directory, write the following commands in command prompt or terminal:
 
-Before performing magic with Django, you have to create your database.
-
-The name of this database is 'depthealth'.
 
 You may name it whatever you with, just be sure to update the settings.py file with the credentials you would like to use.
-
-python manage.py makemigrations
-python manage.py migrate
 
 Next, run:
 

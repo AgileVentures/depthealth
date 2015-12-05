@@ -24,33 +24,15 @@ def epi12a(request):
     formset = formset_factory(StudentForm12A, extra=request.session['students'])
     if request.method =='POST':
         formset = formset(request.POST, request.FILES)
-        p = Person.objects.get(pk = request.session['personpk'])
-        if p.role_id == 1:
-            f = Facility.objects.get(pk = request.session['inputid'])
-        else:
-            f = Facility.objects.get(pk = p.facility_id)
-        count = f.count - request.session['students']
-        if not f.compliant:
-            r = Report.objects.filter(facility_id=f.id).filter(complete=False)
-            if r:
-                r = r[0]
-            else:
-                r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
-                r.save()
-        else:
-            r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
-            r.save()
-            students = Student.objects.filter(facility_id = r.facility_id)
-            f.compliant = False
-            f.save()
-            if students:
-                for student in students:
-                    student.report.add(r)
+        r = getreport(request, 'create')
+        f = getfacility(request, r)
         for form in formset:
             if form.is_valid():
                 id = f.district_id * 10000000000
                 id += (f.pk*1000000)
-                id += count
+                id += f.count
+                f.count += 1
+                f.save()
                 s = Student(id = id)
                 s.fname = form.cleaned_data['fname']
                 s.mname = form.cleaned_data['mname']
@@ -78,7 +60,6 @@ def epi12a(request):
                 s.tb = form.cleaned_data['tb']
                 s.notes = form.cleaned_data['notes']
                 s.facility_id = f.pk
-                count += 1
                 if s.dtap1:
                     s.dtap2 = s.dtap1
                 if s.dtap2:
@@ -104,35 +85,17 @@ def epi12a(request):
 def epi12b(request):
     formset = formset_factory(StudentForm12B, extra=request.session['students'])
     if request.method =='POST':
-        p = Person.objects.get(pk = request.session['personpk'])
-        if p.role_id == 1:
-            f = Facility.objects.get(pk = request.session['inputid'])
-        else:
-            f = Facility.objects.get(pk = p.facility_id)
-        count = f.count - request.session['students']
-        if not f.compliant:
-            r = Report.objects.filter(facility_id=f.id).filter(complete=False)
-            if r:
-                r = r[0]
-            else:
-                r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
-                r.save()
-        else:
-            r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
-            r.save()
-            f.compliant = False
-            f.save()
-            students = Student.objects.filter(facility_id = r.facility_id)
-            if students:
-                for student in students:
-                    student.report.add(r)
+        r = getreport(request, 'create')
+        f = getfacility(request, r)
         formset = formset(request.POST, request.FILES)
         for form in formset:
             if form.is_valid():
                 grade = Enrollment.objects.get(name= form.cleaned_data['grade'])
                 id = f.district_id * 10000000000
                 id += (f.pk*1000000)
-                id += count
+                id += f.count
+                f.count += 1
+                f.save()
                 s = Student(id = id)
                 s.fname = form.cleaned_data['fname']
                 s.mname = form.cleaned_data['mname']
@@ -163,7 +126,6 @@ def epi12b(request):
                 s.tb = form.cleaned_data['tb']
                 s.notes = form.cleaned_data['notes']
                 s.facility_id = f.pk
-                count += 1
                 if s.dtap1:
                     s.dtap2 = s.dtap1
                 if s.dtap2:
@@ -194,19 +156,50 @@ def epi12b(request):
         formset = formset()
     return render(request, 'reportinput/epi12b.html',{'formset':formset,})
 
+def getfacility(request, object):
+    p = Person.objects.get(pk = request.session['personpk'])
+    if p.role_id == 1:
+        if object.facility_id is None:
+            f = Facility.objects.get(pk = p.facility_id)
+        else:
+            f = Facility.objects.get(pk = object.facility_id)
+    else:
+        f = Facility.objects.get(pk = p.facility_id)
+    return f
+
+def getreport(request, type):
+    p = Person.objects.get(pk = request.session['personpk'])
+    if p.role_id == 1:
+        f = Facility.objects.get(pk = request.session['inputid'])
+    else:
+        f = Facility.objects.get(pk = p.facility_id)
+    if type == 'update':
+        report = Report.objects.filter(facility_id = f.pk)
+        return report.last()
+    else:
+        if not f.compliant:
+            r = Report.objects.filter(facility_id=f.id).filter(complete=False)
+            if r:
+                r = r[0]
+            else:
+                r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
+                r.save()
+        else:
+            r = Report(person_id=p.pk, facility_id=p.facility_id,entrydate=datetime.datetime.today())
+            r.save()
+            f.compliant = False
+            f.save()
+            students = Student.objects.filter(facility_id = r.facility_id)
+            if students:
+                for student in students:
+                    student.report.add(r)
+        return r
+
 @login_required
 def update12b(request, student_id):
     student = Student.objects.get(pk = student_id)
-    p = Person.objects.get(pk = request.session['personpk'])
-    if p.role_id == 1:
-        if student.facility_id is None:
-            f = Facility.objects.get(pk = p.facility_id)
-        else:
-            f = Facility.objects.get(pk = student.facility_id)
-    else:
-        f = Facility.objects.get(pk = p.facility_id)
-    rep = Report.objects.filter(facility_id = f.pk)
-    rep = rep.last()
+    f = getfacility(request, student)
+    report = getreport(request, 'update')
     f.compliant = False
     form = StudentForm12B(initial={
         'fname':student.fname,
@@ -311,24 +304,17 @@ def update12b(request, student_id):
                 s.varicella2 = s.varicella1
                 s.save()
             s.save()
-            rep.save()
-            rep.student_set.add(s)
+            if report is not None:
+                report.save()
+                report.student_set.add(s)
             return HttpResponseRedirect(reverse('reportinput:complete'))
     return render(request,'reportinput/studentupdate12b.html', {'form':form,'f':f})
 
 @login_required
 def update12a(request, student_id):
     student = Student.objects.get(pk = student_id)
-    p = Person.objects.get(pk = request.session['personpk'])
-    if p.role_id == 1:
-        if student.facility_id is None:
-            f = Facility.objects.get(pk = p.facility_id)
-        else:
-            f = Facility.objects.get(pk=student.facility_id)
-    else:
-        f = Facility.objects.get(pk = p.facility_id)
-    rep = Report.objects.filter(facility_id = f.pk)
-    rep = rep.last()
+    f = getfacility(request, student)
+    rep = getreport(request, 'update')
     form = StudentForm12A(initial={
         'fname':student.fname,
         'mname':student.mname,
@@ -466,6 +452,8 @@ def landing12b(request):
             highest_grade = Enrollment.objects.get(name = form.cleaned_data['highest_grade'])
             other_enroll = form.cleaned_data['other_enroll']
             students = form.cleaned_data['students_to_input']
+            seventh_grade_enroll = form.cleaned_data['seventh_grade_enroll']
+            f.seventh_grade_enroll = seventh_grade_enroll
             f.lowest_grade_id = lowest_grade.pk
             f.highest_grade_id = highest_grade.pk
             f.other_enroll = other_enroll
@@ -485,7 +473,7 @@ def landing12b(request):
                 request.session['students'] = students
                 return HttpResponseRedirect(reverse('reportinput:epi12b'))
     else:
-        form = SchoolInfo(initial={'lowest_grade':f.lowest_grade,'highest_grade':f.highest_grade, 'kinder_enroll':f.kinder_enroll, 'other_enroll':f.other_enroll})
+        form = SchoolInfo(initial={'lowest_grade':f.lowest_grade,'highest_grade':f.highest_grade, 'kinder_enroll':f.kinder_enroll, 'other_enroll':f.other_enroll, 'seventh_grade_enroll':f.seventh_grade_enroll})
     return  render(request,'reportinput/landing12b.html',{'form':form, 'f':f,})
 
 @login_required
